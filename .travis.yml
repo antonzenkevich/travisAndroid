@@ -1,0 +1,143 @@
+jdk: oraclejdk11
+
+#language: android
+#jdk: oraclejdk11
+#os: linux
+
+#os:
+#  - linux
+#  - osx
+
+
+#env:
+#  - TEST_SUITE="TravisTest"
+#  - TEST_SUITE="TravisTest1"
+
+env:
+  global:
+    - PATH=$HOME/.local/bin:$PATH
+
+matrix:
+  include:
+    - if: commit_message =~ /android/
+      env: TEST_SUITE="TravisTest"
+      language: android
+      os: linux
+
+
+    - if: commit_message =~ /android/
+      env: TEST_SUITE="TravisTest"
+      language: android
+      os: linux
+
+    - if: commit_message =~ /ios/
+      env: TEST_SUITE="TravisTest1"
+      os: osx
+      osx_image: xcode10.1
+      language: java
+
+    - if: commit_message =~ /ios/
+      env: TEST_SUITE="TravisTest1"
+      os: osx
+      osx_image: xcode10.1
+      language: java
+
+
+  #  exclude:
+  #    - env: TEST_SUITE="TravisTest"
+  #      os: osx
+  #    - env: TEST_SUITE="TravisTest1"
+  #      os: linux
+
+android:
+  licenses:
+    - 'android-sdk-preview-license-.+'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
+  components:
+    - tools
+    - tools
+    - platform-tools
+    - extra-google-google_play_services
+    - extra-google-m2repository
+    - extra-android-m2repository
+    - build-tools-28.0.3
+    - android-22
+    - sys-img-armeabi-v7a-android-22
+
+
+  #matrix:
+  #  include:
+  #  exclude:
+  #    - env: TEST_SUITE="TravisTest"
+  #      os: osx
+  #    - env: TEST_SUITE="TravisTest1"
+  #      os: linux
+
+  #  exclude:
+  #    - TEST_SUITE="TravisTest"
+  #      os: linux
+  #    - env: TEST_SUITE="TravisTest1"
+  #      os: osx
+
+  #    - env: TEST_SUITE="TravisTest"
+  #    - TEST_SUITE=if [ $TRAVIS_OS_NAME == "linux" ]; then "TravisTest"; else "TravisTest1"; fi
+  #    if [[ $TRAVIS_OS_NAME == "linux" ]]; then TEST_SUITE="TravisTest"; else TEST_SUITE="TravisTest1"; fi
+  #    if [ $TRAVIS_OS_NAME == "linux" ]; then - TEST_SUITE="TravisTest1"; else - TEST_SUITE="TravisTest"; fi
+
+
+  #android:
+  #  licenses:
+  #    - 'android-sdk-preview-license-.+'
+  #    - 'android-sdk-license-.+'
+  #    - 'google-gdk-license-.+'
+  #  components:
+  ##    - |
+  ##      if [[ $TRAVIS_OS_NAME == "linux" ]]; then
+  #        - tools
+  #        - tools
+  #        - platform-tools
+  #        - extra-google-google_play_services
+  #        - extra-google-m2repository
+  #        - extra-android-m2repository
+  #        - build-tools-28.0.3
+  #        - android-22
+  #        - sys-img-armeabi-v7a-android-22
+  ##      fi
+
+install:
+  - |
+    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
+      sudo apt-get update
+      sudo apt-get install build-essential libssl-dev
+      sudo curl https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+      source ~/.profile
+      nvm --version
+      nvm install 10.15.3
+      nvm use 10.15.3
+      node -v
+      npm -v
+      npm install -g appium@1.9.1
+    fi
+
+  - |
+    if [[ $TRAVIS_OS_NAME == "osx" ]]; then
+      brew update
+      brew install awscli
+      npm install -g appium@1.9.1
+      brew cask install google-chrome
+    fi
+
+before_script:
+  - |
+    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
+      echo no | android create avd --force -n Pixel_XL_API_22 --abi armeabi-v7a -t 1
+      emulator -avd Pixel_XL_API_22 -no-window &
+      android-wait-for-emulator
+      adb shell input keyevent 82
+    fi
+
+script:
+  - appium --log-level error &
+  #  - appium &
+  - mvn clean verify -Dtags=$TEST_SUITE
