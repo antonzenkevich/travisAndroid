@@ -42,7 +42,7 @@ android:
     - extra-android-m2repository
     - build-tools-28.0.3
     - android-23
-    - sys-img-arm64-v8a-google_apis-23
+    - sys-img-armeabi-v7a-google_apis-23
 
 install:
   - |
@@ -70,7 +70,7 @@ install:
 before_script:
   - |
     if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-      echo no | android create avd --force -n Pixel_XL_API_25 --abi arm64-v8a -t 1 --tag google_apis
+      echo no | android create avd --force -n Pixel_XL_API_25 --abi armeabi-v7a -t 1 --tag google_apis
       emulator -avd Pixel_XL_API_25 -no-window &
       android-wait-for-emulator
       adb shell input keyevent 82
