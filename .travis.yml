@@ -40,7 +40,8 @@ android:
     - extra-google-google_play_services
     - extra-google-m2repository
     - extra-android-m2repository
-    - build-tools-28.0.3
+#    - build-tools-28.0.3
+    - build-tools-23.0.0
     - android-22
     - sys-img-armeabi-v7a-android-22
 
@@ -74,6 +75,7 @@ before_script:
       emulator -avd Pixel_XL_API_25 -no-window &
       android-wait-for-emulator
       adb shell input keyevent 82
+      adb shell am instrument -w io.appium.uiautomator2.server.test/android.support.test.runner.AndroidJUnitRunner
     fi
 
 script:
