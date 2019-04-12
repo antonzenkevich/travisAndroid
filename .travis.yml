@@ -76,7 +76,6 @@ before_script:
       adb shell input keyevent 82
       adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v1.18.0.apk
       adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk
-      adb -P 5037 -s emulator-5554 install /home/travis/build/antonzenkevich/travisAndroid/Perchwell Staging.apk
     fi
 
 script:
