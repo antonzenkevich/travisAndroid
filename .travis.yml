@@ -73,10 +73,9 @@ before_script:
       echo no | android create avd --force -n Pixel_XL_API_25 --abi arm64-v8a -t 1 --tag google_apis
       emulator -avd Pixel_XL_API_25 -no-window &
       android-wait-for-emulator
-      adb shell input keyevent 82
       adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v1.18.0.apk
-      adb -P 5037 -s emulator-5554 uninstall io.appium.uiautomator2.server.test
       adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk
+      adb shell input keyevent 82
     fi
 
 script:
