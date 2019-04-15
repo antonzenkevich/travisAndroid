@@ -84,7 +84,7 @@ before_script:
 script:
   - |
     if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-    adb -P 5037 -s emulator-5554 install /home/travis/build/antonzenkevich/travisAndroid/perchwell-staging-release-v3.1.0 (131).apk
+    adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk
     fi
 #  - appium --log-level error &
   - appium &
