@@ -4,7 +4,7 @@ import net.thucydides.core.annotations.WithTagValuesOf;
 import org.junit.Test;
 import projectApp.SampleTest;
 
-@WithTagValuesOf("TravisTest")
+@WithTagValuesOf("TravisTest11")
 public class AddNoteTest extends SampleTest {
 
     @Test

@@ -9,7 +9,6 @@ public class test8 extends SampleTest {
 
     @Test
     public void logInAsClient() {
-        generalPageSteps.loginAsClient("test-ios+mgmt-core@perchwell.com",
-                "perchwell");
+        generalPageSteps.loginAsClient();
     }
 }

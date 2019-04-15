@@ -21,7 +21,7 @@ public class GeneralPageSteps extends ScenarioSteps{
     }
 
     @Step
-    public void loginAsClient(String s, String perchwell) {
+    public void loginAsClient() {
         atPage.clickOnLoginButton();
     }
 }
