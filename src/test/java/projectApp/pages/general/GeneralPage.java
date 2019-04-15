@@ -33,11 +33,11 @@ public class GeneralPage extends BasePage {
 //        System.out.println(getImplicitWaitTimeout());
 
 //
-        setImplicitTimeout(5, TimeUnit.SECONDS);
+//        setImplicitTimeout(5, TimeUnit.SECONDS);
 //        System.out.println(getImplicitWaitTimeout());
 //
-        waitABit(5000);
+//        waitABit(5000);
         element(loginButton).click();
-        waitABit(5000);
+//        waitABit(5000);
     }
 }
