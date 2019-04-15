@@ -11,8 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.concurrent.TimeUnit;
 
-public class BasePage extends PageObject {
-
+public abstract class BasePage extends PageObject {
     public BasePage(final WebDriver driver) {
         super(driver, new Predicate<PageObject>() {
             @Override
@@ -21,13 +20,11 @@ public class BasePage extends PageObject {
                 PageFactory
                         .initElements(new AppiumFieldDecorator(((WebDriverFacade) page.getDriver()).getProxiedDriver(),
                                 page.getImplicitWaitTimeout().in(TimeUnit.SECONDS), TimeUnit.SECONDS), page);
+
                 return true;
             }
-
         });
+        setImplicitTimeout(30000, TimeUnit.MILLISECONDS);
     }
 
-    public AndroidDriver<AndroidElement> AndroidDriver() {
-        return (AndroidDriver<AndroidElement>) ((WebDriverFacade) getDriver()).getProxiedDriver();
-    }
 }

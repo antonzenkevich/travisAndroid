@@ -19,4 +19,9 @@ public class GeneralPageSteps extends ScenarioSteps{
         atPage.clickOnPlusButton();
         waitABit(10000);
     }
+
+    @Step
+    public void loginAsClient(String s, String perchwell) {
+        atPage.clickOnLoginButton();
+    }
 }
