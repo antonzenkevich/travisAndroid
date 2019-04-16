@@ -9,6 +9,8 @@ public class test4 extends SampleTest {
 
     @Test
     public void logInAsClient() {
-        generalPageSteps.loginAsClient();
+//        generalPageSteps.loginAsClient();
+        generalPageSteps.isPlusButton();
+        generalPageSteps.clickOnPlusButton();
     }
 }
