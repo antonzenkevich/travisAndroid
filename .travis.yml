@@ -2,17 +2,18 @@ jdk: oraclejdk11
 os: osx
 osx_image: xcode10.1
 #language: java
-#env:
-#  global:
-#    - PATH=$HOME/.local/bin:$PATH
+env:
+  global:
+    - PATH=$HOME/.local/bin:$PATH
+    - SYS=25 ABI="google_apis;arm64-v8a"
 #
-#matrix:
-#  include:
-#    - if: commit_message =~ /ios/
-#      env: TEST_SUITE="TravisTest1"
-#
-#    - if: commit_message =~ /ios/
-#      env: TEST_SUITE="TravisTest1"
+matrix:
+  include:
+    - if: commit_message =~ /ios/
+      env: TEST_SUITE="TravisTest1"
+
+    - if: commit_message =~ /ios/
+      env: TEST_SUITE="TravisTest1"
 #
 #
 #android:
@@ -69,8 +70,6 @@ osx_image: xcode10.1
 #  - osx
 #services:
 #  - xvfb
-env:
-  - SYS=25 ABI="google_apis;arm64-v8a"
 
 language: generic
 before_install:
