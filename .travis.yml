@@ -68,6 +68,8 @@ install:
   - sudo apt-get install cpu-checker
   - kvm-ok
   - uname -m
+  - sudo apt-get install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils ia32-libs-multiarch
+  - kvm-ok
 
 #before_script:
 #  - |
