@@ -66,10 +66,10 @@ install:
       brew cask install google-chrome
     fi
   - sudo apt-get install cpu-checker
-  - kvm-ok
+  - sudo /usr/sbin/kvm-ok
   - uname -m
   - sudo apt-get install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils ia32-libs-multiarch
-  - kvm-ok
+  - sudo /usr/sbin/kvm-ok
 
 #before_script:
 #  - |
