@@ -67,7 +67,6 @@ install:
     fi
 
 before_script:
-  - list-avds
   - |
     if [[ $TRAVIS_OS_NAME == "linux" ]]; then
       echo no | android create avd --force -n Pixel_XL_API_25 --abi x86_64 -t 1 --tag google_apis
