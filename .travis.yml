@@ -32,7 +32,7 @@ before_install:
   - brew cask uninstall java; brew tap caskroom/versions;
   # Accept licenses before installing components, no need to echo y for each component
   - brew cask install android-sdk
-  - yes | sdkmanager --licenses
+  - yes | /usr/local/bin/sdkmanager --licenses
   # Platform tools
   - sdkmanager "emulator" "tools" "platform-tools" > /dev/null
   - sdkmanager --list | head -15
