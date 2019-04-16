@@ -31,7 +31,23 @@ matrix:
 #    - build-tools-28.0.3
 #    - android-25
 #    - sys-img-arm64-v8a-google_apis-25
-before_install:
+
+install:
+  - brew update
+  - brew install awscli
+  - npm install -g appium@1.9.1
+  - brew cask install google-chrome
+#  - sudo apt-get update
+#  - sudo apt-get install build-essential libssl-dev
+#  - sudo curl https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+#  - source ~/.profile
+#  - nvm --version
+#  - nvm install 10.15.3
+#  - nvm use 10.15.3
+#  - node -v
+#  - npm -v
+#  - npm install -g appium@1.9.1
+
   # Install android tools
   - ANDROID_TOOLS=4333796 # android-28
   - export ANDROID_HOME=~/android-sdk
@@ -62,22 +78,6 @@ before_install:
   - EMU_PARAMS="-no-boot-anim -gpu off"
     # use the absolute emulator path in case older version installed (on default path)
     $ANDROID_HOME/emulator/emulator -avd test -no-audio $EMU_PARAMS $EMU_ADDITIONAL_OPTIONS ${EMU_DEBUG} &
-
-install:
-  - brew update
-  - brew install awscli
-  - npm install -g appium@1.9.1
-  - brew cask install google-chrome
-#  - sudo apt-get update
-#  - sudo apt-get install build-essential libssl-dev
-#  - sudo curl https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-#  - source ~/.profile
-#  - nvm --version
-#  - nvm install 10.15.3
-#  - nvm use 10.15.3
-#  - node -v
-#  - npm -v
-#  - npm install -g appium@1.9.1
 
 
 
