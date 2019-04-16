@@ -67,6 +67,7 @@ install:
     fi
   - sudo apt-get install cpu-checker
   - kvm-ok
+  - uname -m
 
 #before_script:
 #  - |
