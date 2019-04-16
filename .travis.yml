@@ -15,46 +15,45 @@ matrix:
     - if: commit_message =~ /ios/
       env: TEST_SUITE="TravisTest1"
 
-
-#android:
-#  licenses:
-#    - 'android-sdk-preview-license-.+'
-#    - 'android-sdk-license-.+'
-#    - 'google-gdk-license-.+'
-#  components:
-#    - tools
-#    - tools
-#    - platform-tools
-#    - extra-google-google_play_services
-#    - extra-google-m2repository
-#    - extra-android-m2repository
-#    - build-tools-28.0.3
-#    - android-25
-#    - sys-img-arm64-v8a-google_apis-25
+before_install:
+  # Install android tools
+  - ANDROID_TOOLS=4333796 # android-28
+  - export ANDROID_HOME=~/android-sdk
+  - wget -q "https://dl.google.com/android/repository/sdk-tools-darwin-$ANDROID_TOOLS.zip" -O android-sdk-tools.zip
+  - unzip -q android-sdk-tools.zip -d ${ANDROID_HOME}
+  - rm android-sdk-tools.zip
+  - PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools
+  # Silence warning.
+  - mkdir -p ~/.android
+  - touch ~/.android/repositories.cfg
+  # install correct version of java on osx
+  # skip brew update
+  - export HOMEBREW_NO_AUTO_UPDATE=1
+  - brew cask uninstall java; brew tap caskroom/versions; brew cask install java8;
+  # Accept licenses before installing components, no need to echo y for each component
+  - yes | sdkmanager --licenses
+  # Platform tools
+  - sdkmanager "emulator" "tools" "platform-tools" > /dev/null
+  - sdkmanager --list | head -15
+  # install older build tools (for emulator)
+  - sdkmanager "build-tools;25.0.2" "platforms;android-25" > /dev/null
+  # Create and start emulator.
+  - sdkmanager "system-images;android-$SYS;$ABI" > /dev/null
+  - sdkmanager --list | head -15
+  - echo no | avdmanager create avd -n test -k "system-images;android-$SYS;$ABI"
+  # fix timezone warning on osx
+  - sudo ln -sf /usr/share/zoneinfo/US/Pacific /etc/localtime
+  - EMU_PARAMS="-no-boot-anim -gpu off"
+    # use the absolute emulator path in case older version installed (on default path)
+  - $ANDROID_HOME/emulator/emulator -avd test -no-audio $EMU_PARAMS $EMU_ADDITIONAL_OPTIONS ${EMU_DEBUG} &
 
 install:
   - brew update
   - brew install awscli
   - npm install -g appium@1.9.1
   - brew cask install google-chrome
-#  - sudo apt-get update
-#  - sudo apt-get install build-essential libssl-dev
-#  - sudo curl https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-#  - source ~/.profile
-#  - nvm --version
-#  - nvm install 10.15.3
-#  - nvm use 10.15.3
-#  - node -v
-#  - npm -v
-#  - npm install -g appium@1.9.1
-
-
-
 
 before_script:
-#  - android create avd --force -n Pixel_XL_API_25 --abi arm64-v8a -t 1 --tag google_apis
-#  - emulator -avd Pixel_XL_API_25 -no-window &
-#  - android-wait-for-emulator
   - ./scripts/android-wait-for-emulator.sh
   - adb shell input keyevent 82
 
@@ -62,6 +61,5 @@ before_script:
   - adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk
 
 script:
-  #  - appium --log-level error &
   - appium &
   - mvn clean verify -Dtags=$TEST_SUITE
