@@ -29,7 +29,7 @@ before_install:
   # install correct version of java on osx
   # skip brew update
   - export HOMEBREW_NO_AUTO_UPDATE=1
-  - brew cask uninstall java; brew tap caskroom/versions;
+#  - brew cask uninstall java; brew tap caskroom/versions; brew cask install java11;
   # Accept licenses before installing components, no need to echo y for each component
   - brew cask install android-sdk
   - yes | /usr/local/bin/sdkmanager --licenses
