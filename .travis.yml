@@ -57,6 +57,8 @@ install:
       npm -v
       npm install -g appium@1.9.1
     fi
+  - npm install appium-uiautomator2-driver
+  - npm install appium-adb
 
   - |
     if [[ $TRAVIS_OS_NAME == "osx" ]]; then
