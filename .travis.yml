@@ -1,7 +1,7 @@
 jdk: oraclejdk11
 os: osx
 osx_image: xcode10.1
-#language: java
+language: java
 env:
   global:
     - PATH=$HOME/.local/bin:$PATH
@@ -71,7 +71,7 @@ matrix:
 #services:
 #  - xvfb
 
-language: generic
+#language: generic
 before_install:
   # Install android tools
   - ANDROID_TOOLS=4333796 # android-28
