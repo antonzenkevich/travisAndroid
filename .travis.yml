@@ -146,8 +146,6 @@ install:
     fi
 
 before_script:
-  - apt-get --quiet update --yes
-  - apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1
   - wget --quiet --output-document=android-sdk.tgz https://dl.google.com/android/android-sdk_r${ANDROID_SDK_TOOLS}-linux.tgz
   - tar --extract --gzip --file=android-sdk.tgz
   - echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter android-${ANDROID_COMPILE_SDK}
@@ -160,10 +158,10 @@ before_script:
   - export PATH=$PATH:$PWD/android-sdk-linux/platform-tools/
   - |
     if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-      echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter sys-img-x86-google_apis-${ANDROID_COMPILE_SDK}
-      echo no | android-sdk-linux/tools/android create avd -n test -t android-${ANDROID_COMPILE_SDK} --abi google_apis/x86
-      android-sdk-linux/tools/emulator64-x86 -avd test -no-window -no-audio &
-      ./android-wait-for-emulator
+     echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter sys-img-x86-google_apis-${ANDROID_COMPILE_SDK}
+    echo no | android-sdk-linux/tools/android create avd -n test -t android-${ANDROID_COMPILE_SDK} --abi google_apis/x86
+    android-sdk-linux/tools/emulator64-x86 -avd test -no-window -no-audio &
+    ./android-wait-for-emulator
       adb shell input keyevent 82
     fi
 
