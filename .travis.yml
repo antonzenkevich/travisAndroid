@@ -1,33 +1,69 @@
 jdk: oraclejdk11
+os: osx
+osx_image: xcode10.1
+language: java
 env:
   global:
     - PATH=$HOME/.local/bin:$PATH
+    - SYS=25 ABI="google_apis;arm64-v8a"
+
+matrix:
+  include:
+    - if: commit_message =~ /ios/
+      env: TEST_SUITE="TravisTest1"
+
+    - if: commit_message =~ /ios/
+      env: TEST_SUITE="TravisTest1"
 
 before_install:
+  # Install android tools
   - ANDROID_TOOLS=4333796 # android-28
   - export ANDROID_HOME=~/android-sdk
   - wget -q "https://dl.google.com/android/repository/sdk-tools-darwin-$ANDROID_TOOLS.zip" -O android-sdk-tools.zip
   - unzip -q android-sdk-tools.zip -d ${ANDROID_HOME}
   - rm android-sdk-tools.zip
   - PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools
+  # Silence warning.
   - mkdir -p ~/.android
   - touch ~/.android/repositories.cfg
+  # install correct version of java on osx
+  # skip brew update
   - export HOMEBREW_NO_AUTO_UPDATE=1
-  - brew cask uninstall java; brew tap caskroom/versions; brew cask install java8
-  - yes | sdkmanager --licenses
+  - brew cask uninstall java; brew tap caskroom/versions; brew cask install java8;
+  # Accept licenses before installing components, no need to echo y for each component
+  - export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
+  - export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
+  - export JAVA_HOME='/usr/libexec/java_home -v 1.8'
+  - brew cask install android-sdk
+  - yes | /usr/local/bin/sdkmanager --licenses
+  # Platform tools
   - sdkmanager "emulator" "tools" "platform-tools" > /dev/null
   - sdkmanager --list | head -15
+  # install older build tools (for emulator)
   - sdkmanager "build-tools;25.0.2" "platforms;android-25" > /dev/null
-  - sdkmanager "system-images;android-25;google_apis;armeabi-v7a > /dev/null
+  # Create and start emulator.
+  - sdkmanager "system-images;android-$SYS;$ABI" > /dev/null
   - sdkmanager --list | head -15
-  - echo no | avdmanager create avd -n test -k "system-images;android-25;google_apis;armeabi-v7a"
+  - echo no | avdmanager create avd -n test -k "system-images;android-$SYS;$ABI"
+  # fix timezone warning on osx
   - sudo ln -sf /usr/share/zoneinfo/US/Pacific /etc/localtime
-    EMU_PARAMS="-no-window -gpu swiftshader"
-  - emulator -avd test -no-audio $EMU_PARAMS $EMU_ADDITIONAL_OPTIONS ${EMU_DEBUG} &
+  - EMU_PARAMS="-no-boot-anim -gpu off"
+    # use the absolute emulator path in case older version installed (on default path)
+  - $ANDROID_HOME/emulator/emulator -avd test -no-audio $EMU_PARAMS $EMU_ADDITIONAL_OPTIONS ${EMU_DEBUG} &
+
+install:
+  - brew update
+  - brew install awscli
+  - npm install -g appium@1.9.1
+  - brew cask install google-chrome
 
 before_script:
-  - android-wait-for-emulator
+  - ./scripts/android-wait-for-emulator.sh
   - adb shell input keyevent 82
 
+  - adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v1.18.0.apk
+  - adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk
+
 script:
-  - echo "Done."
+  - appium &
+  - mvn clean verify -Dtags=$TEST_SUITE
