@@ -1,4 +1,4 @@
-jdk: oraclejdk10
+jdk: oraclejdk11
 os: osx
 osx_image: xcode10.1
 language: java
@@ -44,7 +44,7 @@ before_install:
   - java --version
   - brew cask install android-sdk
   - /usr/libexec/java_home -V
-  - yes | /usr/local/bin/sdkmanager --licenses
+#  - yes | /usr/local/bin/sdkmanager --licenses
   # Platform tools
   - sdkmanager "emulator" "tools" "platform-tools" > /dev/null
   - sdkmanager --list | head -15
