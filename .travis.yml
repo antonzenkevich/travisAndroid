@@ -32,18 +32,18 @@ before_install:
   # Accept licenses before installing components, no need to echo y for each component
 #  - export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
 #  - export JAVA_HOME='/Library/Java/JavaVirtualMachines/openjdk-11.0.1.jdk/Contents/Home'
-  - export JAVA_OPTS="--add-modules java.xml.bind"
+  - --add-modules java.xml.bind
   - brew cask install android-sdk
   - echo 'export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"' >> ~/.bash_profile
   - java -version
-#  - yes | /usr/local/bin/sdkmanager --licenses
+  - yes | /usr/local/bin/sdkmanager --licenses
   # Platform tools
   - sdkmanager "emulator" "tools" "platform-tools"
   - sdkmanager --list | head -15
   # install older build tools (for emulator)
   - sdkmanager "build-tools;25.0.2" "platforms;android-25"
   # Create and start emulator.
-  - sdkmanager "system-images;android-$SYS;$ABI" > /dev/null
+  - sdkmanager "system-images;android-$SYS;$ABI"
   - sdkmanager --list | head -15
   - echo no | avdmanager create avd -n test -k "system-images;android-$SYS;$ABI"
   # fix timezone warning on osx
