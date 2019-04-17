@@ -48,7 +48,7 @@ before_install:
 install:
   - brew update
   - brew install awscli
-  - brew update node
+  - brew upgrade node
   - npm install -g appium@1.9.1
   - brew cask install google-chrome
 
