@@ -38,10 +38,10 @@ before_install:
   - java -version
 #  - yes | /usr/local/bin/sdkmanager --licenses
   # Platform tools
-  - sdkmanager "emulator" "tools" "platform-tools" > /dev/null
+  - sdkmanager "emulator" "tools" "platform-tools"
   - sdkmanager --list | head -15
   # install older build tools (for emulator)
-  - sdkmanager "build-tools;25.0.2" "platforms;android-25" > /dev/null
+  - sdkmanager "build-tools;25.0.2" "platforms;android-25"
   # Create and start emulator.
   - sdkmanager "system-images;android-$SYS;$ABI" > /dev/null
   - sdkmanager --list | head -15
