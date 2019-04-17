@@ -45,7 +45,7 @@ before_install:
   # fix timezone warning on osx
   - sudo ln -sf /usr/share/zoneinfo/US/Pacific /etc/localtime
   - export ANDROID_HOME=/usr/local/android-sdk/tools/bin
-  - export PATH=/usr/local/android-sdk/tools/bin:$PATH
+  - export PATH=/usr/local/android-sdk/tools/bin
 
 install:
   - brew update
