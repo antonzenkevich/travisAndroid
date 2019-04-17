@@ -32,7 +32,6 @@ before_install:
   # Accept licenses before installing components, no need to echo y for each component
 #  - export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
 #  - export JAVA_HOME='/Library/Java/JavaVirtualMachines/openjdk-11.0.1.jdk/Contents/Home'
-  - brew cask search java
   - java --add-modules java.xml.bind
   - javac --add-modules java.xml.bind
   - brew cask install android-sdk
