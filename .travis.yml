@@ -1,4 +1,6 @@
-jdk: oraclejdk11
+jdk:
+  - oraclejdk8
+  - oraclejdk11
 os: osx
 osx_image: xcode10.1
 language: java
@@ -35,6 +37,10 @@ before_install:
   # Accept licenses before installing components, no need to echo y for each component
 #  - export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
   - export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
+  - java --version
+  - jdk_switcher use oraclejdk8
+  - java --version
+  - /usr/libexec/java_home -V
   - export JAVA_HOME='/Library/Java/JavaVirtualMachines/openjdk-11.0.1.jdk/Contents/Home'
   - java --version
   - brew cask install android-sdk
