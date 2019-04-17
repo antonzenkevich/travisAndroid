@@ -14,7 +14,7 @@ matrix:
 
 #    - if: commit_message =~ /ios/
 #      env: TEST_SUITE="TravisTest1"
-#https://download.oracle.com/otn/java/jdk/8u211-b12/478a62b7d4e34b78b671c754eaaf38ab/jdk-8u211-macosx-x64.dmg
+
 before_install:
   # Install android tools
   - ANDROID_TOOLS=4333796 # android-28
@@ -44,7 +44,6 @@ before_install:
   - echo no | avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-$SYS;$ABI"
   # fix timezone warning on osx
   - sudo ln -sf /usr/share/zoneinfo/US/Pacific /etc/localtime
-  - EMU_PARAMS="-no-boot-anim -gpu off"
 
 install:
   - brew update
@@ -53,8 +52,8 @@ install:
   - brew cask install google-chrome
 
 before_script:
-  - emulator -avd Pixel_XL_API_26 -no-audio $EMU_PARAMS $EMU_ADDITIONAL_OPTIONS ${EMU_DEBUG} &
-  - ./scripts/android-wait-for-emulator.sh
+  - emulator -avd Pixel_XL_API_25 -no-window &
+  - android-wait-for-emulator
   - adb shell input keyevent 82
 
 #  - adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v1.18.0.apk
