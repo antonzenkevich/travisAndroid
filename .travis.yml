@@ -31,7 +31,7 @@ before_install:
   - export HOMEBREW_NO_AUTO_UPDATE=1
   # Accept licenses before installing components, no need to echo y for each component
   - brew cask install android-sdk
-  - echo 'export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"' >> ~/.bash_profile
+  - export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
   - yes | /usr/local/bin/sdkmanager --licenses
   # Platform tools
   - sdkmanager "emulator" "tools" "platform-tools"
@@ -48,6 +48,7 @@ before_install:
 install:
   - brew update
   - brew install awscli
+  - brew update node
   - npm install -g appium@1.9.1
   - brew cask install google-chrome
 
