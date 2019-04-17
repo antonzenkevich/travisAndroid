@@ -62,4 +62,4 @@ before_script:
 
 script:
   - appium &
-  - mvn clean verify -Dtags=$TEST_SUITE
+  - mvn -q clean verify -Dtags=$TEST_SUITE
