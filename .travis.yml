@@ -1,90 +1,67 @@
-jdk: oraclejdk11
+jdk: oraclejdk8
+os: osx
+osx_image: xcode9.3
+language: java
 env:
   global:
     - PATH=$HOME/.local/bin:$PATH
+    - SYS=26 ABI="google_apis;x86"
 
 matrix:
   include:
-    - if: commit_message =~ /android/
-      env: TEST_SUITE="TravisTest"
-      language: android
-      os: linux
-
-    - if: commit_message =~ /android/
-      env: TEST_SUITE="TravisTest1"
-      language: android
-      os: linux
-
     - if: commit_message =~ /ios/
       env: TEST_SUITE="TravisTest1"
-      os: osx
-      osx_image: xcode10.1
-      language: java
 
-    - if: commit_message =~ /ios/
-      env: TEST_SUITE="TravisTest1"
-      os: osx
-      osx_image: xcode10.1
-      language: java
+#    - if: commit_message =~ /ios/
+#      env: TEST_SUITE="TravisTest1"
 
-android:
-  licenses:
-    - 'android-sdk-preview-license-.+'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
-  components:
-    - tools
-    - tools
-    - platform-tools
-    - extra-google-google_play_services
-    - extra-google-m2repository
-    - extra-android-m2repository
-    - build-tools-28.0.3
-    - android-25
-    - sys-img-arm64-v8a-google_apis-25
+before_install:
+  # Install android tools
+  - ANDROID_TOOLS=4333796 # android-28
+  - export ANDROID_HOME=~/android-sdk
+  - wget -q "https://dl.google.com/android/repository/sdk-tools-darwin-$ANDROID_TOOLS.zip" -O android-sdk-tools.zip
+  - unzip -q android-sdk-tools.zip -d ${ANDROID_HOME}
+  - rm android-sdk-tools.zip
+  - PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools
+  # Silence warning.
+  - mkdir -p ~/.android
+  - touch ~/.android/repositories.cfg
+  # install correct version of java on osx
+  # skip brew update
+  - export HOMEBREW_NO_AUTO_UPDATE=1
+  # Accept licenses before installing components, no need to echo y for each component
+  - brew cask install android-sdk
+  - export ANDROID_SDK_ROOT=~/.android/avd
+  - yes | /usr/local/bin/sdkmanager --licenses
+  # Platform tools
+  - sdkmanager "emulator" "tools" "platform-tools"
+  - sdkmanager --list | head -15
+  # install older build tools (for emulator)
+  - sdkmanager "build-tools;28.0.3" "platforms;android-26"
+  # Create and start emulator.
+  - sdkmanager "system-images;android-$SYS;$ABI"
+  - sdkmanager --list | head -15
+  - echo no | avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-$SYS;$ABI"
+  # fix timezone warning on osx
+  - sudo ln -sf /usr/share/zoneinfo/US/Pacific /etc/localtime
+  - export ANDROID_HOME=/usr/local/android-sdk/tools/bin:$PATH
+  - export PATH=/usr/local/android-sdk/tools/bin:$PATH
 
 install:
-  - |
-    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-      sudo apt-get update
-      sudo apt-get install build-essential libssl-dev
-      sudo curl https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-      source ~/.profile
-      nvm --version
-      nvm install 10.15.3
-      nvm use 10.15.3
-      node -v
-      npm -v
-      npm install -g appium@1.11.0
-    fi
-
-  - |
-    if [[ $TRAVIS_OS_NAME == "osx" ]]; then
-      brew update
-      brew install awscli
-      npm install -g appium@1.9.1
-      brew cask install google-chrome
-    fi
+  - brew update
+  - brew install awscli
+  - brew upgrade node
+  - npm install -g appium@1.9.1
+  - brew cask install google-chrome
 
 before_script:
-  - |
-    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-      echo no | android create avd --force -n Pixel_XL_API_25 --abi arm64-v8a -t 1 --tag google_apis
-      emulator -avd Pixel_XL_API_25 -no-window &
-      android-wait-for-emulator
-      adb shell input keyevent 82
-    fi
+#  - emulator -avd Pixel_XL_API_26 -no-window &
+#  - android-wait-for-emulator
+#  - adb shell input keyevent 82
 
-#  - |
-#    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-#    adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v1.18.0.apk
-#    fi
+#  - adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v1.18.0.apk
+#  - adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk
 
 script:
-#  - |
-#    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-#    adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk
-#    fi
-  #  - appium --log-level error &
   - appium &
-  - mvn clean verify -Dtags=$TEST_SUITE
+  - mvn -q clean verify -Dtags=$TEST_SUITE
