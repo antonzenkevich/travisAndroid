@@ -44,7 +44,7 @@ before_install:
   - echo no | avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-$SYS;$ABI"
   # fix timezone warning on osx
   - sudo ln -sf /usr/share/zoneinfo/US/Pacific /etc/localtime
-  - export ANDROID_HOME=/usr/local/android-sdk/tools/bin:$PATH
+  - export ANDROID_HOME=/usr/local/android-sdk/tools/bin
   - export PATH=/usr/local/android-sdk/tools/bin:$PATH
 
 install:
