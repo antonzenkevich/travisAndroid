@@ -1,4 +1,4 @@
-jdk: oraclejdk8
+jdk: oraclejdk11
 os: osx
 osx_image: xcode10.1
 language: java
