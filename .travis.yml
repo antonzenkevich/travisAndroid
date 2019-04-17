@@ -37,7 +37,7 @@ before_install:
   - sdkmanager "emulator" "tools" "platform-tools"
   - sdkmanager --list | head -15
   # install older build tools (for emulator)
-  - sdkmanager "build-tools;25.0.2" "platforms;android-26"
+  - sdkmanager "build-tools;28.0.3" "platforms;android-26"
   # Create and start emulator.
   - sdkmanager "system-images;android-$SYS;$ABI"
   - sdkmanager --list | head -15
@@ -48,6 +48,7 @@ before_install:
 install:
   - brew update
   - brew install awscli
+  - brew install node
   - npm update
   - npm install -g appium@1.9.1
   - brew cask install google-chrome
