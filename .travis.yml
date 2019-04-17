@@ -14,7 +14,7 @@ matrix:
 
 #    - if: commit_message =~ /ios/
 #      env: TEST_SUITE="TravisTest1"
-
+#https://download.oracle.com/otn/java/jdk/8u211-b12/478a62b7d4e34b78b671c754eaaf38ab/jdk-8u211-macosx-x64.dmg
 before_install:
   # Install android tools
   - ANDROID_TOOLS=4333796 # android-28
@@ -32,8 +32,7 @@ before_install:
   # Accept licenses before installing components, no need to echo y for each component
 #  - export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
 #  - export JAVA_HOME='/Library/Java/JavaVirtualMachines/openjdk-11.0.1.jdk/Contents/Home'
-  - brew cask uninstall java; brew tap caskroom/versions; brew cask install java8;
-  - touch ~/.android/repositories.cfg
+  - brew cask install java8
   - brew cask install android-sdk
   - echo 'export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"' >> ~/.bash_profile
   - java -version
