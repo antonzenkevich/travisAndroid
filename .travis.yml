@@ -53,7 +53,7 @@ install:
   - brew cask install google-chrome
 
 before_script:
-  - emulator -avd Pixel_XL_API_26 -no-window &
+#  - emulator -avd Pixel_XL_API_26 -no-window &
 #  - android-wait-for-emulator
 #  - adb shell input keyevent 82
 
@@ -62,4 +62,4 @@ before_script:
 
 script:
   - appium &
-  - mvn clean verify -Dtags=$TEST_SUITE -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
+  - mvn -q clean verify -Dtags=$TEST_SUITE
