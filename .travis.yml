@@ -5,7 +5,7 @@ language: java
 env:
   global:
     - PATH=$HOME/.local/bin:$PATH
-    - SYS=25 ABI="google_apis;arm64-v8a"
+    - SYS=26 ABI="google_apis;x86"
 
 matrix:
   include:
@@ -30,31 +30,23 @@ before_install:
   # skip brew update
   - export HOMEBREW_NO_AUTO_UPDATE=1
   # Accept licenses before installing components, no need to echo y for each component
-#  - export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
-#  - export JAVA_HOME='/Library/Java/JavaVirtualMachines/openjdk-11.0.1.jdk/Contents/Home'
-#  - java --add-modules java.xml.bind
-#  - javac --add-modules java.xml.bind
-  - brew cask doctor
-#  - brew cask install homebrew/cask-versions/java8
-  - java -version
   - brew cask install android-sdk
   - echo 'export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"' >> ~/.bash_profile
-  - java -version
   - yes | /usr/local/bin/sdkmanager --licenses
   # Platform tools
   - sdkmanager "emulator" "tools" "platform-tools"
   - sdkmanager --list | head -15
   # install older build tools (for emulator)
-  - sdkmanager "build-tools;25.0.2" "platforms;android-25"
+  - sdkmanager "build-tools;25.0.2" "platforms;android-26"
   # Create and start emulator.
   - sdkmanager "system-images;android-$SYS;$ABI"
   - sdkmanager --list | head -15
-  - echo no | avdmanager create avd -n test -k "system-images;android-$SYS;$ABI"
+  - echo no | avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-$SYS;$ABI"
   # fix timezone warning on osx
   - sudo ln -sf /usr/share/zoneinfo/US/Pacific /etc/localtime
   - EMU_PARAMS="-no-boot-anim -gpu off"
     # use the absolute emulator path in case older version installed (on default path)
-  - $ANDROID_HOME/emulator/emulator -avd test -no-audio $EMU_PARAMS $EMU_ADDITIONAL_OPTIONS ${EMU_DEBUG} &
+  - $ANDROID_HOME/emulator/ -avd Pixel_XL_API_26 -no-audio $EMU_PARAMS $EMU_ADDITIONAL_OPTIONS ${EMU_DEBUG} &
 
 install:
   - brew update
