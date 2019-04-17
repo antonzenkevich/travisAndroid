@@ -36,6 +36,7 @@ before_install:
 #  - export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
   - export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
   - export JAVA_HOME='/Library/Java/JavaVirtualMachines/openjdk-11.0.1.jdk/Contents/Home'
+  - java --version
   - brew cask install android-sdk
   - /usr/libexec/java_home -V
   - yes | /usr/local/bin/sdkmanager --licenses
