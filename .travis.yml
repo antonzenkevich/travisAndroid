@@ -33,7 +33,7 @@ before_install:
   # Accept licenses before installing components, no need to echo y for each component
 #  - export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
   - export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
-  - export JAVA_HOME='/Library/Java/JavaVirtualMachines/openjdk-11.0.1.jdk/'
+#  - export JAVA_HOME='/Library/Java/JavaVirtualMachines/openjdk-11.0.1.jdk/'
   - brew cask install android-sdk
   - yes | /usr/local/bin/sdkmanager --licenses
   # Platform tools
