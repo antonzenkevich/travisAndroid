@@ -45,13 +45,13 @@ before_install:
   # fix timezone warning on osx
   - sudo ln -sf /usr/share/zoneinfo/US/Pacific /etc/localtime
 
-#install:
-#  - brew update
-#  - brew install awscli
-#  - brew install node
-#  - npm update
-#  - npm install -g appium@1.9.1
-#  - brew cask install google-chrome
+install:
+  - brew update
+  - brew install awscli
+  - brew install node
+  - npm update
+  - npm install -g appium@1.9.1
+  - brew cask install google-chrome
 
 before_script:
   - emulator -avd Pixel_XL_API_26 -no-window &
