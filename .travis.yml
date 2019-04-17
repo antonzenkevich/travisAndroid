@@ -32,7 +32,7 @@ before_install:
   # Accept licenses before installing components, no need to echo y for each component
 #  - export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
 #  - export JAVA_HOME='/Library/Java/JavaVirtualMachines/openjdk-11.0.1.jdk/Contents/Home'
-  - brew cask install java8
+  - brew install java 8
   - brew cask install android-sdk
   - echo 'export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"' >> ~/.bash_profile
   - java -version
