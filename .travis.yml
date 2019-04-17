@@ -45,18 +45,18 @@ before_install:
   # fix timezone warning on osx
   - sudo ln -sf /usr/share/zoneinfo/US/Pacific /etc/localtime
 
-install:
-  - brew update
-  - brew install awscli
-  - brew install node
-  - npm update
-  - npm install -g appium@1.9.1
-  - brew cask install google-chrome
+#install:
+#  - brew update
+#  - brew install awscli
+#  - brew install node
+#  - npm update
+#  - npm install -g appium@1.9.1
+#  - brew cask install google-chrome
 
 before_script:
-  - emulator -avd Pixel_XL_API_25 -no-window &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82
+  - emulator -avd Pixel_XL_API_26 -no-window &
+#  - android-wait-for-emulator
+#  - adb shell input keyevent 82
 
 #  - adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v1.18.0.apk
 #  - adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk
