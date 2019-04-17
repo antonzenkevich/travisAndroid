@@ -34,6 +34,7 @@ before_install:
 #  - export JAVA_HOME='/Library/Java/JavaVirtualMachines/openjdk-11.0.1.jdk/Contents/Home'
 #  - java --add-modules java.xml.bind
 #  - javac --add-modules java.xml.bind
+  - brew cask doctor
   - brew cask install homebrew/cask-versions/java8
   - java -version
   - brew cask install android-sdk
