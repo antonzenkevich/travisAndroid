@@ -12,8 +12,8 @@ matrix:
     - if: commit_message =~ /ios/
       env: TEST_SUITE="TravisTest1"
 
-    - if: commit_message =~ /ios/
-      env: TEST_SUITE="TravisTest1"
+#    - if: commit_message =~ /ios/
+#      env: TEST_SUITE="TravisTest1"
 
 before_install:
   # Install android tools
@@ -29,14 +29,15 @@ before_install:
   # install correct version of java on osx
   # skip brew update
   - export HOMEBREW_NO_AUTO_UPDATE=1
-  - brew cask uninstall java
-  - brew tap caskroom/versions
-  - brew cask install java8
+#  - brew cask uninstall java
+#  - brew tap caskroom/versions
+#  - brew cask install java8
   # Accept licenses before installing components, no need to echo y for each component
 #  - export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
   - export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
 #  - export JAVA_HOME='/Library/Java/JavaVirtualMachines/openjdk-11.0.1.jdk/'
   - brew cask install android-sdk
+  - /usr/libexec/java_home -V
   - yes | /usr/local/bin/sdkmanager --licenses
   # Platform tools
   - sdkmanager "emulator" "tools" "platform-tools" > /dev/null
