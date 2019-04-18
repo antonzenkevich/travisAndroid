@@ -16,14 +16,6 @@ matrix:
 #      env: TEST_SUITE="TravisTest1"
 
 before_install:
-  # Install android tools
-  - ANDROID_TOOLS=4333796 # android-28
-  - export ANDROID_HOME=/Users/travis/.android/
-  - wget -q "https://dl.google.com/android/repository/sdk-tools-darwin-$ANDROID_TOOLS.zip" -O android-sdk-tools.zip
-  - unzip -q android-sdk-tools.zip -d ${ANDROID_HOME}
-  - rm android-sdk-tools.zip
-  - PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools
-  # Silence warning.
   - mkdir -p ~/.android
   - touch ~/.android/repositories.cfg
   # install correct version of java on osx
@@ -31,6 +23,8 @@ before_install:
   - export HOMEBREW_NO_AUTO_UPDATE=1
   # Accept licenses before installing components, no need to echo y for each component
   - brew cask install android-sdk
+  - export ANDROID_SDK_ROOT=/usr/local/
+  - export ANDROID_HOME = /usr/local/
 #  - export ANDROID_SDK_ROOT= ~/.android/
   - yes | /usr/local/bin/sdkmanager --licenses
   # Platform tools
@@ -44,6 +38,7 @@ before_install:
   - sdkmanager "system-images;android-$SYS;$ABI"
   - sdkmanager --list | head -15
   - echo no | avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-$SYS;$ABI"
+  - ./emulator -avd Pixel_XL_API_26
   - avdmanager list target
   - avdmanager list avd
   # fix timezone warning on osx
