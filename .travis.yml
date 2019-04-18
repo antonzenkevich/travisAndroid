@@ -34,7 +34,10 @@ before_install:
   - export ANDROID_SDK_ROOT= ~/.android/
   - yes | /usr/local/bin/sdkmanager --licenses
   # Platform tools
-  - sdkmanager "emulator" "tools" "platform-tools"
+  - brew cask install android-platform-tools
+  - adb devices
+  - sdkmanager "emulator" "tools"
+#  - "platform-tools"
   - sdkmanager --list | head -15
   # install older build tools (for emulator)
   - sdkmanager "build-tools;28.0.3" "platforms;android-26"
@@ -44,21 +47,20 @@ before_install:
   - echo no | avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-$SYS;$ABI"
   - find ~/ -name "Pixel_XL_API_26.ini"
   - find ~/ -name "platform-tools"
-  - find ~/ -name "avd"
+  - find ~/ -name "adb"
   - find ~/ -type d -name "platform-tools"
-  - find ~/ -type d -name "avd"
+  - find ~/ -type d -name "adb"
   - find ~/ -iname "platform-tools"
-  - find ~/ -iname "avd"
+  - find ~/ -iname "adb"
   # fix timezone warning on osx
   - sudo ln -sf /usr/share/zoneinfo/US/Pacific /etc/localtime
-  - adb devices
 
-install:
-  - brew update
-  - brew install awscli
-  - brew upgrade node
-  - npm install -g appium@1.9.1
-  - brew cask install google-chrome
+#install:
+#  - brew update
+#  - brew install awscli
+#  - brew upgrade node
+#  - npm install -g appium@1.9.1
+#  - brew cask install google-chrome
 
 before_script:
 #  - emulator -avd Pixel_XL_API_26 -no-window &
@@ -68,6 +70,6 @@ before_script:
 #  - adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v1.18.0.apk
 #  - adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk
 
-script:
-  - appium &
-  - mvn -q clean verify -Dtags=$TEST_SUITE
+#script:
+#  - appium &
+#  - mvn -q clean verify -Dtags=$TEST_SUITE
