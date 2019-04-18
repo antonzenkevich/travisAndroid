@@ -46,15 +46,9 @@ before_install:
   - echo no | avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-$SYS;$ABI"
   - avdmanager list target
   - avdmanager list avd
-  - find ~/ -name "Pixel_XL_API_26.ini"
-  - find ~/ -name "platform-tools"
-  - find ~/ -name "adb"
-  - find ~/ -type d -name "platform-tools"
-  - find ~/ -type d -name "adb"
-  - find ~/ -iname "platform-tools"
-  - find ~/ -iname "adb"
   # fix timezone warning on osx
   - sudo ln -sf /usr/share/zoneinfo/US/Pacific /etc/localtime
+  - adb version
 
 install:
   - brew update
