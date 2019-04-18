@@ -45,6 +45,9 @@ before_install:
   - sdkmanager "system-images;android-$SYS;$ABI"
   - sdkmanager --list | head -15
   - echo no | avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-$SYS;$ABI"
+  - avdmanager list target
+  - avdmanager list divice
+  - avdmanager list avd
   - find ~/ -name "Pixel_XL_API_26.ini"
   - find ~/ -name "platform-tools"
   - find ~/ -name "adb"
