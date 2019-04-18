@@ -37,7 +37,6 @@ before_install:
   - sdkmanager "system-images;android-$SYS;$ABI"
   - sdkmanager --list | head -15
   - echo no | avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-$SYS;$ABI"
-  - brew cask install intel-haxm
   - emulator -accel-check
   - emulator -avd Pixel_XL_API_26 &
   - avdmanager list target
