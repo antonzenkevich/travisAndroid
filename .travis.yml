@@ -35,7 +35,6 @@ before_install:
   - yes | /usr/local/bin/sdkmanager --licenses
   # Platform tools
   - brew cask install android-platform-tools
-  - adb devices
   - sdkmanager "emulator" "tools"
 #  - "platform-tools"
   - sdkmanager --list | head -15
@@ -58,12 +57,12 @@ before_install:
   # fix timezone warning on osx
   - sudo ln -sf /usr/share/zoneinfo/US/Pacific /etc/localtime
 
-#install:
-#  - brew update
-#  - brew install awscli
-#  - brew upgrade node
-#  - npm install -g appium@1.9.1
-#  - brew cask install google-chrome
+install:
+  - brew update
+  - brew install awscli
+  - brew upgrade node
+  - npm install -g appium@1.9.1
+  - brew cask install google-chrome
 
 before_script:
 #  - emulator -avd Pixel_XL_API_26 -no-window &
@@ -73,6 +72,6 @@ before_script:
 #  - adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v1.18.0.apk
 #  - adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk
 
-#script:
-#  - appium &
-#  - mvn -q clean verify -Dtags=$TEST_SUITE
+script:
+  - appium &
+  - mvn -q clean verify -Dtags=$TEST_SUITE
