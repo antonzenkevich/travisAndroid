@@ -39,7 +39,7 @@ before_install:
   - echo no | avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-$SYS;$ABI"
   - brew cask install intel-haxm
   - emulator -accel-check
-  - emulator -and Pixel_XL_API_26 &
+  - emulator -avd Pixel_XL_API_26 &
   - avdmanager list target
   - avdmanager list avd
   # fix timezone warning on osx
