@@ -42,8 +42,13 @@ before_install:
   - sdkmanager "system-images;android-$SYS;$ABI"
   - sdkmanager --list | head -15
   - echo no | avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-$SYS;$ABI"
-  - find /Users -name "Pixel_XL_API_26.ini"
-  - find /Users -name "platform-tools"
+  - find ~/ -name "Pixel_XL_API_26.ini"
+  - find ~/ -name "platform-tools"
+  - find ~/ -name "avd"
+  - find ~/ -type d -name "platform-tools"
+  - find ~/ -type d -name "avd"
+  - find ~/ -iname "platform-tools"
+  - find ~/ -iname "avd"
   # fix timezone warning on osx
   - sudo ln -sf /usr/share/zoneinfo/US/Pacific /etc/localtime
 
