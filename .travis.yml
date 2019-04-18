@@ -5,7 +5,7 @@ language: java
 env:
   global:
     - PATH=$HOME/.local/bin:$PATH
-    - SYS=26 ABI="google_apis;x86"
+    - SYS=25 ABI="google_apis;armeabi-v7a"
 
 matrix:
   include:
@@ -36,15 +36,13 @@ before_install:
   # Create and start emulator.
   - sdkmanager "system-images;android-$SYS;$ABI"
   - sdkmanager --list | head -15
-  - echo no | avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-$SYS;$ABI"
-  - /usr/local/share/android-sdk/tools/emulator -avd Pixel_XL_API_26 &
+  - echo no | avdmanager create avd -n Pixel_XL_API_25 -k "system-images;android-$SYS;$ABI"
+  - /usr/local/share/android-sdk/tools/emulator -avd Pixel_XL_API_25 &
   - avdmanager list target
   - avdmanager list avd
   # fix timezone warning on osx
   - sudo ln -sf /usr/share/zoneinfo/US/Pacific /etc/localtime
-# echo no | avdmanager create avd -n Pixel_XL_API_25 -k "system-images;android-25;google_apis;arm64-v8a"
-#
-#
+
 install:
   - brew update
   - brew install awscli
