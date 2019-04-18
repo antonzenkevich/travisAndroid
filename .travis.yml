@@ -31,7 +31,7 @@ before_install:
   - export HOMEBREW_NO_AUTO_UPDATE=1
   # Accept licenses before installing components, no need to echo y for each component
   - brew cask install android-sdk
-  - export ANDROID_SDK_ROOT= /Users/travis/.android/
+  - export ANDROID_SDK_ROOT= ~/.android/
   - yes | /usr/local/bin/sdkmanager --licenses
   # Platform tools
   - sdkmanager "emulator" "tools" "platform-tools"
@@ -51,6 +51,7 @@ before_install:
   - find ~/ -iname "avd"
   # fix timezone warning on osx
   - sudo ln -sf /usr/share/zoneinfo/US/Pacific /etc/localtime
+  - adb devices
 
 install:
   - brew update
