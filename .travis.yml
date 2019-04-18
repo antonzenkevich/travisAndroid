@@ -37,8 +37,7 @@ before_install:
   - sdkmanager "system-images;android-$SYS;$ABI"
   - sdkmanager --list | head -15
   - echo no | avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-$SYS;$ABI"
-  - emulator -accel-check
-  - emulator -avd Pixel_XL_API_26 &
+  - /usr/local/share/android-sdk/tools/emulator -avd Pixel_XL_API_26 &
   - avdmanager list target
   - avdmanager list avd
   # fix timezone warning on osx
