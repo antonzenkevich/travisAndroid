@@ -108,7 +108,7 @@ before_install:
   - sdkmanager "emulator" "tools" "platform-tools" > /dev/null
   - sdkmanager --list | head -15
   # install older build tools (for emulator)
-  - sdkmanager "build-tools;25.0.2" "platforms;android-25" > /dev/null
+  - sdkmanager "build-tools;26.0.3" "platforms;android-25" > /dev/null
   # Create and start emulator.
   - sdkmanager "system-images;android-$SYS;$ABI" > /dev/null
   - sdkmanager --list | head -15
@@ -120,7 +120,7 @@ before_install:
   - unzip -q emulator.zip
   - cd -
   - echo no | avdmanager create avd -n Pixel_XL_API_25 -k "system-images;android-$SYS;$ABI"
-  - $ANDROID_HOME/tools/emulator -avd Pixel_XL_API_25 -no-window &
+  - $ANDROID_HOME/tools/emulator -avd Pixel_XL_API_25 -no-window -no-snapshot -no-accel &
   - adb wait-for-device
 #  - echo no | avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-$SYS;$ABI"
   # emulator debug options
