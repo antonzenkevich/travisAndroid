@@ -127,7 +127,7 @@ before_install:
   - EMU_COMMAND="emulator-headless -no-accel"
     # use the absolute emulator path in case older version installed (on default path)
   - $ANDROID_HOME/emulator/emulator -headless -no-accel -avd Pixel_XL_API_26 -no-audio -no-boot-anim -gpu off &
-  - ./home/travis/build/antonzenkevich/travisAndroid/android-wait-for-emulator.sh
+  - ./scripts/android-wait-for-emulator.sh
   - adb shell input keyevent 82#
 
 install:
