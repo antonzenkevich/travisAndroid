@@ -116,11 +116,11 @@ before_install:
   # Install latest canary of emulator
   - cd $ANDROID_HOME
   - sudo apt-get install -y libunwind8 libc++1
-  - wget -q "https://dl.google.com/android/repository/emulator-linux-5346014.zip" -O emulator.zip
+  - wget -q "https://dl.google.com/android/repository/emulator-linux-5438295.zip" -O emulator.zip
   - unzip -q emulator.zip
   - cd -
   - echo no | avdmanager create avd -n Pixel_XL_API_25 -k "system-images;android-$SYS;$ABI"
-  - $ANDROID_HOME/tools/emulator -avd Pixel_XL_API_25 -no-window -no-snapshot -no-accel &
+  - $ANDROID_HOME/tools/emulator -avd Pixel_XL_API_25 -no-snapshot -no-accel &
   - adb wait-for-device
 #  - echo no | avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-$SYS;$ABI"
   # emulator debug options
