@@ -120,7 +120,7 @@ before_install:
   - unzip -q emulator.zip
   - cd -
   - echo no | avdmanager create avd -n Pixel_XL_API_25 -k "system-images;android-$SYS;$ABI"
-  - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_25 -no-snapshot &
+  - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_25 -no-snapshot -no-accel &
   - adb wait-for-device
 #  - echo no | avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-$SYS;$ABI"
   # emulator debug options
