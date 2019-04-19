@@ -121,16 +121,7 @@ before_install:
   - cd -
   - echo no | avdmanager create avd -n Pixel_XL_API_25 -k "system-images;android-$SYS;$ABI"
   - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_25 -no-snapshot -no-accel -no-window &
-  - adb wait-for-device
-#  - echo no | avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-$SYS;$ABI"
-  # emulator debug options
-#  - EMU_DEBUG="-debug all -logcat *:e -verbose -show-kernel"
-#  - EMU_ADDITIONAL_OPTIONS="-camera-back none -camera-front none -memory 2048"
-  - EMU_PARAMS="-no-boot-anim -gpu off"
-  - EMU_COMMAND="emulator-headless -no-accel"
-    # use the absolute emulator path in case older version installed (on default path)
-#  - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_26 -no-accel -no-audio -no-boot-anim
-#  - ./scripts/android-wait-for-emulator.sh
+  - adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
   - adb shell input keyevent 82#
 
 install:
