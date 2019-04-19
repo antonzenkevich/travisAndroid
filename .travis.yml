@@ -121,7 +121,7 @@ before_install:
   - cd -
   - echo no | avdmanager create avd -n Pixel_XL_API_25 -k "system-images;android-$SYS;$ABI"
   - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_25 -no-snapshot -no-accel -no-window &
-  - adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
+  - adb wait-for-device
 #  - echo no | avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-$SYS;$ABI"
   # emulator debug options
 #  - EMU_DEBUG="-debug all -logcat *:e -verbose -show-kernel"
@@ -145,7 +145,7 @@ install:
       nvm use 10.15.3
       node -v
       npm -v
-      npm install -g appium@1.9.1
+      npm install -g appium
     fi
 
 before_script:
@@ -154,4 +154,4 @@ before_script:
 script:
 #  - appium --log-level error &
   - appium &
-  - mvn clean verify -Dtags=$TEST_SUITE
+  - mvn -q clean verify -Dtags=$TEST_SUITE
