@@ -86,12 +86,12 @@ matrix:
 #    - sys-img-arm64-v8a-google_apis-25
 
 before_install:
-#  - |
-#    if [ $TRAVIS_OS_NAME == "linux" ]; then
-#      export DISPLAY=:99.0
-#      sh -e /etc/init.d/xvfb start
-#      sleep 3 # give xvfb some time to start
-#    fi
+  - |
+    if [ $TRAVIS_OS_NAME == "linux" ]; then
+      export DISPLAY=:99.0
+      sh -e /etc/init.d/xvfb start
+      sleep 3 # give xvfb some time to start
+    fi
 # Install android tools
   - ANDROID_TOOLS=4333796 # android-28
   - export ANDROID_HOME=~/android-sdk
@@ -120,7 +120,7 @@ before_install:
   - unzip -q emulator.zip
   - cd -
   - echo no | avdmanager create avd -n Pixel_XL_API_25 -k "system-images;android-$SYS;$ABI"
-  - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_25 -no-snapshot -no-accel &
+  - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_25 -no-snapshot -no-accel -no-window &
   - adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
 #  - echo no | avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-$SYS;$ABI"
   # emulator debug options
