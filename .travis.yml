@@ -120,7 +120,7 @@ before_install:
   - unzip -q emulator.zip
   - cd -
   - echo no | android create avd --force -n Pixel_XL_API_25 -t 1 --abi x86_64 --tag google_apis
-  - emulator -avd Pixel_XL_API_25 -memory 1500 -no-accel -gpu swiftshader -camera-back none -camera-front none -no-boot-anim -no-snapshot-save -no-snapstorage -no-accel -gpu swiftshader
+  - emulator -avd Pixel_XL_API_25 -memory 1500 -no-accel -gpu swiftshader -camera-back none -camera-front none -no-boot-anim -no-snapshot-save -no-snapstorage
 #  - echo no | avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-$SYS;$ABI"
   # emulator debug options
 #  - EMU_DEBUG="-debug all -logcat *:e -verbose -show-kernel"
