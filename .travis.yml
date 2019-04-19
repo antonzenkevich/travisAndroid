@@ -5,7 +5,7 @@ language: java
 env:
   global:
     - PATH=$HOME/.local/bin:$PATH
-    - SYS=25 ABI="google_apis;armeabi-v7a"
+    - SYS=26 ABI="google_apis;x86"
 
 matrix:
   include:
@@ -16,6 +16,7 @@ matrix:
 #      env: TEST_SUITE="TravisTest1"
 
 before_install:
+  - brew update
   - mkdir -p ~/.android
   - touch ~/.android/repositories.cfg
   # install correct version of java on osx
@@ -33,13 +34,12 @@ before_install:
   - /usr/local/share/android-sdk/tools/bin/sdkmanager "build-tools;28.0.3" "platforms;android-26"
   # Create and start emulator.
   - /usr/local/share/android-sdk/tools/bin/sdkmanager "system-images;android-$SYS;$ABI"
-  - echo no | /usr/local/share/android-sdk/tools/bin/avdmanager create avd -n Pixel_XL_API_25 -k "system-images;android-$SYS;$ABI"
-  - /usr/local/share/android-sdk/tools/emulator -avd Pixel_XL_API_25 -no-window -no-skin -no-audio &
+  - echo no | /usr/local/share/android-sdk/tools/bin/avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-$SYS;$ABI"
+  - /usr/local/share/android-sdk/tools/emulator -avd Pixel_XL_API_26 -no-window -no-skin -no-audio &
   # fix timezone warning on osx
   - sudo ln -sf /usr/share/zoneinfo/US/Pacific /etc/localtime
 
 install:
-  - brew update
   - brew install awscli
   - brew upgrade node
   - npm install -g appium@1.9.1
