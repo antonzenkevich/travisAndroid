@@ -45,14 +45,6 @@
 #  - npm install -g appium@1.9.1
 #  - brew cask install google-chrome
 #
-#before_script:
-##  - emulator -avd Pixel_XL_API_26 -no-window &
-##  - android-wait-for-emulator
-##  - adb shell input keyevent 82
-#
-##  - adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v1.18.0.apk
-##  - adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk
-#
 #script:
 #  - appium &
 #  - mvn -q clean verify -Dtags=$TEST_SUITE
@@ -135,8 +127,8 @@ before_install:
   - EMU_COMMAND="emulator-headless -no-accel"
     # use the absolute emulator path in case older version installed (on default path)
   - $ANDROID_HOME/emulator/$EMU_COMMAND -avd Pixel_XL_API_26 -no-audio $EMU_PARAMS $EMU_ADDITIONAL_OPTIONS ${EMU_DEBUG} &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82
+  - /home/travis/build/antonzenkevich/travisAndroid/android-wait-for-emulator.sh
+  - adb shell input keyevent 82#
 
 install:
   - |
@@ -153,14 +145,8 @@ install:
       npm install -g appium@1.9.1
     fi
 
-#before_script:
-#  - |
-#    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-#      echo no | android create avd --force -n Pixel_XL_API_25 --abi arm64-v8a -t 1 --tag google_apis
-#      emulator -avd Pixel_XL_API_25 -no-window &
-#      android-wait-for-emulator
-#      adb shell input keyevent 82
-#    fi
+before_script:
+
 
 script:
 #  - appium --log-level error &
