@@ -1,58 +1,168 @@
-jdk: oraclejdk8
-os: osx
-osx_image: xcode9.3
-language: java
+#jdk: oraclejdk8
+#os: osx
+#osx_image: xcode9.3
+#language: java
+#env:
+#  global:
+#    - PATH=$HOME/.local/bin:$PATH
+#    - SYS=26 ABI="google_apis;x86"
+#
+#matrix:
+#  include:
+#    - if: commit_message =~ /ios/
+#      env: TEST_SUITE="TravisTest1"
+#
+##    - if: commit_message =~ /ios/
+##      env: TEST_SUITE="TravisTest1"
+#
+#before_install:
+#  - brew update
+#  - mkdir -p ~/.android
+#  - touch ~/.android/repositories.cfg
+#  # install correct version of java on osx
+#  # skip brew update
+#  - export HOMEBREW_NO_AUTO_UPDATE=1
+#  # Accept licenses before installing components, no need to echo y for each component
+#  - brew cask install android-sdk
+#  - export ANDROID_SDK_ROOT=/usr/local/share/android-sdk/
+#  - export ANDROID_HOME=/usr/local/share/android-sdk/
+#  - yes | /usr/local/share/android-sdk/tools/bin/sdkmanager --licenses
+#  # Platform tools
+#  - brew cask install android-platform-tools
+#  - /usr/local/share/android-sdk/tools/bin/sdkmanager "emulator" "tools"
+#  # install older build tools (for emulator)
+#  - /usr/local/share/android-sdk/tools/bin/sdkmanager "build-tools;28.0.3" "platforms;android-26"
+#  # Create and start emulator.
+#  - /usr/local/share/android-sdk/tools/bin/sdkmanager "system-images;android-$SYS;$ABI"
+#  - echo no | /usr/local/share/android-sdk/tools/bin/avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-$SYS;$ABI"
+#  - /usr/local/share/android-sdk/tools/emulator -avd Pixel_XL_API_26 -no-window -no-skin -no-audio &
+#  # fix timezone warning on osx
+#  - sudo ln -sf /usr/share/zoneinfo/US/Pacific /etc/localtime
+#
+#install:
+#  - brew install awscli
+#  - brew upgrade node
+#  - npm install -g appium@1.9.1
+#  - brew cask install google-chrome
+#
+#before_script:
+##  - emulator -avd Pixel_XL_API_26 -no-window &
+##  - android-wait-for-emulator
+##  - adb shell input keyevent 82
+#
+##  - adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v1.18.0.apk
+##  - adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk
+#
+#script:
+#  - appium &
+#  - mvn -q clean verify -Dtags=$TEST_SUITE
+
+jdk: oraclejdk11
+sudo: required
+dist: trusty
 env:
   global:
     - PATH=$HOME/.local/bin:$PATH
-    - SYS=26 ABI="google_apis;x86"
+    - SYS=26 ABI="google_apis;x86_64"
 
 matrix:
   include:
-    - if: commit_message =~ /ios/
-      env: TEST_SUITE="TravisTest1"
+    - if: commit_message =~ /android/
+      env: TEST_SUITE="TravisTest"
+      language: generic
+      os: linux
 
-#    - if: commit_message =~ /ios/
-#      env: TEST_SUITE="TravisTest1"
+    - if: commit_message =~ /android/
+      env: TEST_SUITE="TravisTest1"
+      language: generic
+      os: linux
+
+#android:
+#  licenses:
+#    - 'android-sdk-preview-license-.+'
+#    - 'android-sdk-license-.+'
+#    - 'google-gdk-license-.+'
+#  components:
+#    - tools
+#    - tools
+#    - platform-tools
+#    - extra-google-google_play_services
+#    - extra-google-m2repository
+#    - extra-android-m2repository
+#    - build-tools-28.0.3
+#    - android-25
+#    - sys-img-arm64-v8a-google_apis-25
 
 before_install:
-  - brew update
+  - |
+    if [ $TRAVIS_OS_NAME == "linux" ]; then
+      export DISPLAY=:99.0
+      sh -e /etc/init.d/xvfb start
+      sleep 3 # give xvfb some time to start
+    fi
+# Install android tools
+  - ANDROID_TOOLS=4333796 # android-28
+  - export ANDROID_HOME=~/android-sdk
+  - wget -q "https://dl.google.com/android/repository/sdk-tools-linux-$ANDROID_TOOLS.zip" -O android-sdk-tools.zip
+  - unzip -q android-sdk-tools.zip -d ${ANDROID_HOME}
+  - rm android-sdk-tools.zip
+  - PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools
+  # Silence warning.
   - mkdir -p ~/.android
   - touch ~/.android/repositories.cfg
-  # install correct version of java on osx
-  # skip brew update
-  - export HOMEBREW_NO_AUTO_UPDATE=1
   # Accept licenses before installing components, no need to echo y for each component
-  - brew cask install android-sdk
-  - export ANDROID_SDK_ROOT=/usr/local/share/android-sdk/
-  - export ANDROID_HOME=/usr/local/share/android-sdk/
-  - yes | /usr/local/share/android-sdk/tools/bin/sdkmanager --licenses
+  - yes | sdkmanager --licenses
   # Platform tools
-  - brew cask install android-platform-tools
-  - /usr/local/share/android-sdk/tools/bin/sdkmanager "emulator" "tools"
+  - sdkmanager "emulator" "tools" "platform-tools" > /dev/null
+  - sdkmanager --list | head -15
   # install older build tools (for emulator)
-  - /usr/local/share/android-sdk/tools/bin/sdkmanager "build-tools;28.0.3" "platforms;android-26"
+  - sdkmanager "build-tools;25.0.2" "platforms;android-25" > /dev/null
   # Create and start emulator.
-  - /usr/local/share/android-sdk/tools/bin/sdkmanager "system-images;android-$SYS;$ABI"
-  - echo no | /usr/local/share/android-sdk/tools/bin/avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-$SYS;$ABI"
-  - /usr/local/share/android-sdk/tools/emulator -avd Pixel_XL_API_26 -no-window -no-skin -no-audio &
-  # fix timezone warning on osx
-  - sudo ln -sf /usr/share/zoneinfo/US/Pacific /etc/localtime
+  - sdkmanager "system-images;android-$SYS;$ABI" > /dev/null
+  - sdkmanager --list | head -15
+  - rm -rf $ANDROID_HOME/emulator
+  # Install latest canary of emulator
+  - cd $ANDROID_HOME
+  - sudo apt-get install -y libunwind8 libc++1
+  - wget -q "https://dl.google.com/android/repository/emulator-linux-5346014.zip" -O emulator.zip
+  - unzip -q emulator.zip
+  - cd -
+  - echo no | avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-$SYS;$ABI"
+  # emulator debug options
+#  - EMU_DEBUG="-debug all -logcat *:e -verbose -show-kernel"
+#  - EMU_ADDITIONAL_OPTIONS="-camera-back none -camera-front none -memory 2048"
+  - EMU_PARAMS="-no-boot-anim -gpu off"
+  - EMU_COMMAND="emulator-headless -no-accel"
+    # use the absolute emulator path in case older version installed (on default path)
+  - $ANDROID_HOME/emulator/$EMU_COMMAND -avd Pixel_XL_API_26 -no-audio $EMU_PARAMS $EMU_ADDITIONAL_OPTIONS ${EMU_DEBUG} &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82
 
 install:
-  - brew install awscli
-  - brew upgrade node
-  - npm install -g appium@1.9.1
-  - brew cask install google-chrome
+  - |
+    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
+      sudo apt-get update
+      sudo apt-get install build-essential libssl-dev
+      sudo curl https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+      source ~/.profile
+      nvm --version
+      nvm install 10.15.3
+      nvm use 10.15.3
+      node -v
+      npm -v
+      npm install -g appium@1.9.1
+    fi
 
-before_script:
-#  - emulator -avd Pixel_XL_API_26 -no-window &
-#  - android-wait-for-emulator
-#  - adb shell input keyevent 82
-
-#  - adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v1.18.0.apk
-#  - adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk
+#before_script:
+#  - |
+#    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
+#      echo no | android create avd --force -n Pixel_XL_API_25 --abi arm64-v8a -t 1 --tag google_apis
+#      emulator -avd Pixel_XL_API_25 -no-window &
+#      android-wait-for-emulator
+#      adb shell input keyevent 82
+#    fi
 
 script:
+#  - appium --log-level error &
   - appium &
-  - mvn -q clean verify -Dtags=$TEST_SUITE
+  - mvn clean verify -Dtags=$TEST_SUITE
