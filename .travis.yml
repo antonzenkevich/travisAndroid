@@ -55,7 +55,7 @@ dist: trusty
 env:
   global:
     - PATH=$HOME/.local/bin:$PATH
-    - SYS=25 ABI="google_apis;armeabi-v7a"
+    - SYS=25 ABI="google_apis;arm64-v8a"
 
 matrix:
   include:
