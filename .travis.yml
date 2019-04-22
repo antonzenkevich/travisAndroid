@@ -55,7 +55,7 @@ dist: trusty
 env:
   global:
     - PATH=$HOME/.local/bin:$PATH
-    - SYS=22 ABI="google_apis;x86_64"
+    - SYS=22 ABI="google_apis;armeabi-v7a"
 
 matrix:
   include:
@@ -111,7 +111,7 @@ before_install:
   - sdkmanager "build-tools;26.0.3" "platforms;android-22" > /dev/null
   # Create and start emulator.
   - sdkmanager "system-images;android-$SYS;$ABI" > /dev/null
-  - sdkmanager --list | head -15
+  - sdkmanager --list
   - rm -rf $ANDROID_HOME/emulator
   # Install latest canary of emulator
   - cd $ANDROID_HOME
