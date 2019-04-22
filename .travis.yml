@@ -55,7 +55,7 @@ dist: trusty
 env:
   global:
     - PATH=$HOME/.local/bin:$PATH
-    - SYS=25 ABI="google_apis;x86_64"
+    - SYS=22 ABI="google_apis;x86_64"
 
 matrix:
   include:
@@ -108,7 +108,7 @@ before_install:
   - sdkmanager "emulator" "tools" "platform-tools" > /dev/null
   - sdkmanager --list | head -15
   # install older build tools (for emulator)
-  - sdkmanager "build-tools;26.0.3" "platforms;android-25" > /dev/null
+  - sdkmanager "build-tools;26.0.3" "platforms;android-22" > /dev/null
   # Create and start emulator.
   - sdkmanager "system-images;android-$SYS;$ABI" > /dev/null
   - sdkmanager --list | head -15
@@ -136,7 +136,7 @@ install:
       nvm use 10.15.3
       node -v
       npm -v
-      npm install -g appium@1.13.0-beta.3
+      npm install -g appium@1.9.1
     fi
 
 #before_script:
