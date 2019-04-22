@@ -170,7 +170,7 @@ android:
 
 before_install:
   - touch ~/.android/repositories.cfg
-  - node -v
+#  - node -v
 
   # Install the rest of tools (e.g. avdmanager)
   - echo y | sdkmanager tools
