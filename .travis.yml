@@ -187,7 +187,7 @@ before_install:
   - "./node_modules/.bin/appium-doctor"
 
   # Run appium in background and logging to appium_log.txt file
-  - "./node_modules/.bin/appium --session-override --log-level info > ~/appium_log.txt &"
+#  - "./node_modules/.bin/appium --session-override --log-level info > ~/appium_log.txt &"
 
 before_script:
   - echo no | avdmanager create avd --force -n Pixel_XL_API_26 -k "system-images;android-26;google_apis;x86"
