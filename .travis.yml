@@ -181,7 +181,7 @@ before_install:
 
   # Install appium and appium-doctor
   - nvm install 9
-  - npm install appium@1.10.0 appium-doctor
+  - npm install appium@1.9.1 appium-doctor
 
   # Run appium-doctor
   - "./node_modules/.bin/appium-doctor"
