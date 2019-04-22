@@ -177,7 +177,7 @@ before_install:
 
   # Install the system image.
   - yes | sdkmanager "platforms;android-26"
-  - sdkmanager --install "system-images;android-26;google_apis;x86"
+  - yes | sdkmanager --install "system-images;android-26;google_apis;x86"
 
   # Install appium and appium-doctor
   - nvm install 9
