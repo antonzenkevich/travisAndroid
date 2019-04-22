@@ -109,6 +109,7 @@ before_install:
   - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_25 -no-snapshot -no-accel -no-window &
   - adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
   - adb shell input keyevent 82
+  - /home/travis/android-sdk/platform-tools/adb -P 5037 -s emulator-5554 install -g '/home/travis/build/antonzenkevich/travisAndroid/perchwell-staging-release-v3.1.0 (131).apk'
 
 install:
   - |
