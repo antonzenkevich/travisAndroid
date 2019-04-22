@@ -159,7 +159,7 @@ android:
     - tools
     - extra-google-m2repository
     - extra-android-m2repository
-    - android-27
+    - android-26
     - add-on
     - extra
     - sys-img-x86-android-26
