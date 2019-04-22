@@ -196,5 +196,5 @@ before_script:
   - adb shell input keyevent 82 &
 
 script:
-  - appium &
+  - "./node_modules/.bin/appium &"
   - mvn -q clean verify -Dtags=$TEST_SUITE
