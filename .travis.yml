@@ -136,7 +136,7 @@ install:
       nvm use 10.15.3
       node -v
       npm -v
-      npm install -g appium@1.7.1
+      npm install -g appium@1.7.2
     fi
 
 before_script:
