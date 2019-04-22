@@ -38,8 +38,8 @@ before_install:
   - /usr/local/share/android-sdk/tools/emulator -avd Pixel_XL_API_26 -no-window -no-skin -no-audio &
   # fix timezone warning on osx
   - sudo ln -sf /usr/share/zoneinfo/US/Pacific /etc/localtime
-  - adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
-  - adb shell input keyevent 82#
+  - /usr/local/bin/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
+  - /usr/local/bin/adb shell input keyevent 82#
 
 install:
   - brew install awscli
