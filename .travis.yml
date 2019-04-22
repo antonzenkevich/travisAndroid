@@ -16,7 +16,7 @@ matrix:
 #      env: TEST_SUITE="TravisTest1"
 
 before_install:
-  - brew update
+  - brew update --quiet
   - mkdir -p ~/.android
   - touch ~/.android/repositories.cfg
   # install correct version of java on osx
