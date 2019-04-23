@@ -18,7 +18,7 @@ public class GeneralPage extends BasePage {
     private WebElement plusButton;
 
     @AndroidFindBy(id="com.perchwell.re.staging:id/log_in")
-    @iOSXCUITFindBy(accessibility = "name = 'LOG IN'")
+    @iOSXCUITFindBy(accessibility = "LOG IN")
     private WebElement loginButton;
 
     public boolean plusButtonIsDisplayed() {

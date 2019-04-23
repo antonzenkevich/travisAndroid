@@ -217,5 +217,5 @@ install:
   - npm install -g appium
   - brew cask install google-chrome
 script:
-  - appium --log-level error &
-  - mvn clean verify -Dtags=$TEST_SUITE
+  - appium &
+  - mvn -q clean verify -Dtags=$TEST_SUITE
