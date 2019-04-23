@@ -180,7 +180,7 @@ before_install:
 
   # Install appium and appium-doctor
   - nvm install 9
-  - npm install appium@1.12.0 appium-doctor
+  - npm install appium appium-doctor
 
   # Run appium-doctor
   - "./node_modules/.bin/appium-doctor"
@@ -190,7 +190,7 @@ before_install:
 
 before_script:
   - echo no | avdmanager create avd --force -n Pixel_XL_API_26 -k "system-images;android-26;google_apis;x86"
-  - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_26 -o-accel -no-audio -no-window &
+  - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_26 -no-accel -no-audio -no-window -skin 1440x2560 -scale 560dpi &
 #  - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_26 -no-accel -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
