@@ -141,9 +141,9 @@ jdk:
 env:
   global:
     # include $HOME/.local/bin for `aws`
-    - PATH=$HOME\.local\bin:$PATH
+    - PATH=$HOME/.local/bin:$PATH
     # Add $JAVA_HOME/bin to PATH (for Appium executing)
-    - PATH=$PATH:$JAVA_HOME\bin
+    - PATH=$PATH:$JAVA_HOME/bin
 
 matrix:
   include:
@@ -168,7 +168,7 @@ android:
     - 'google-gdk-license-.+'
 
 before_install:
-  - touch ~\.android\repositories.cfg
+  - touch ~/.android/repositories.cfg
 #  - node -v
 
   # Install the rest of tools (e.g. avdmanager)
