@@ -159,10 +159,10 @@ android:
     - tools
     - extra-google-m2repository
     - extra-android-m2repository
-    - android-25
+    - android-26
     - add-on
     - extra
-    - sys-img-armeabi-v7a-android-25
+    - sys-img-x86-android-26
     - extra-google-google_play_services
   licenses:
     - 'android-sdk-license-.+'
@@ -176,8 +176,8 @@ before_install:
   - echo y | sdkmanager tools
 
   # Install the system image.
-  - yes | sdkmanager "platforms;android-25"
-  - yes | sdkmanager --install "system-images;android-25;google_apis;armeabi-v7a"
+  - yes | sdkmanager "platforms;android-26"
+  - yes | sdkmanager --install "system-images;android-26;google_apis;x86"
 
   # Install appium and appium-doctor
   - nvm install 9
@@ -190,12 +190,12 @@ before_install:
 #  - "./node_modules/.bin/appium --session-override --log-level info > ~/appium_log.txt &"
 
 before_script:
-  - echo no | avdmanager create avd --force -n Pixel_XL_API_26 -k "system-images;android-25;google_apis;armeabi-v7a"
+  - echo no | avdmanager create avd --force -n Pixel_XL_API_26 -k "system-images;android-26;google_apis;x86"
   - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_26 -no-accel -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
-  - /usr/local/android-sdk/platform-tools/adb -P 5037 -s emulator-5554 install -g /home/travis/build/antonzenkevich/travisAndroid/node_modules/appium/node_modules/io.appium.settings/apks/settings_apk-debug.apk
-  - /usr/local/android-sdk/platform-tools/adb -P 5037 -s emulator-5554 install /home/travis/build/antonzenkevich/travisAndroid/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v1.18.0.apk
+#  - /usr/local/android-sdk/platform-tools/adb -P 5037 -s emulator-5554 install -g /home/travis/build/antonzenkevich/travisAndroid/node_modules/appium/node_modules/io.appium.settings/apks/settings_apk-debug.apk
+#  - /usr/local/android-sdk/platform-tools/adb -P 5037 -s emulator-5554 install /home/travis/build/antonzenkevich/travisAndroid/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v1.18.0.apk
   - /usr/local/android-sdk/platform-tools/adb shell pm list instrumentation
 #  - /usr/local/android-sdk/platform-tools/adb shell am instrument -w io.appium.uiautomator2.server.test/android.support.test.runner.AndroidJUnitRunner
 
