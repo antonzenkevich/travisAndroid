@@ -18,12 +18,10 @@ android:
     - tools
     - tools
     - platform-tools
-    - addon-google_apis-google-24
     - extra-google-google_play_services
     - extra-google-m2repository
     - extra-android-m2repository
     - build-tools-28.0.3
-    - source-24
     - android-24
     - sys-img-arm64-v8a-google_apis-24
 
