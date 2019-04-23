@@ -194,10 +194,10 @@ before_script:
 #  - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_26 -no-accel -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
-#  - /usr/local/android-sdk/platform-tools/adb -P 5037 -s emulator-5554 install -g /home/travis/build/antonzenkevich/travisAndroid/node_modules/appium/node_modules/io.appium.settings/apks/settings_apk-debug.apk
-#  - /usr/local/android-sdk/platform-tools/adb -P 5037 -s emulator-5554 install /home/travis/build/antonzenkevich/travisAndroid/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v3.4.0.apk
-#  - /usr/local/android-sdk/platform-tools/adb -P 5037 -s emulator-5554 install /home/travis/build/antonzenkevich/travisAndroid/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk
-#  - /usr/local/android-sdk/platform-tools/adb shell am instrument -w io.appium.uiautomator2.e2etest.test/android.support.test.runner.AndroidJUnitRunner
+  - /usr/local/android-sdk/platform-tools/adb -P 5037 -s emulator-5554 install -g /home/travis/build/antonzenkevich/travisAndroid/node_modules/appium/node_modules/io.appium.settings/apks/settings_apk-debug.apk
+  - /usr/local/android-sdk/platform-tools/adb -P 5037 -s emulator-5554 install /home/travis/build/antonzenkevich/travisAndroid/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v3.4.0.apk
+  - /usr/local/android-sdk/platform-tools/adb -P 5037 -s emulator-5554 install /home/travis/build/antonzenkevich/travisAndroid/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk
+  - /usr/local/android-sdk/platform-tools/adb shell am instrument -w io.appium.uiautomator2.e2etest.test/android.support.test.runner.AndroidJUnitRunner
 ##  - /usr/local/android-sdk/platform-tools/adb shell am instrument -w io.appium.uiautomator2.server.test/android.support.test.runner.AndroidJUnitRunner
 
 script:
