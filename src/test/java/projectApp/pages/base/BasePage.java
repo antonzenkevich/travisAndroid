@@ -1,6 +1,7 @@
 package projectApp.pages.base;
 
 import com.google.common.base.Predicate;
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
@@ -9,6 +10,8 @@ import net.thucydides.core.webdriver.WebDriverFacade;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
+import java.net.URL;
+import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
 
 public abstract class BasePage extends PageObject {
@@ -18,13 +21,13 @@ public abstract class BasePage extends PageObject {
             public boolean apply(PageObject page) {
 
                 PageFactory
-                        .initElements(new AppiumFieldDecorator(((WebDriverFacade) page.getDriver()).getProxiedDriver(),
-                                page.getImplicitWaitTimeout().in(TimeUnit.SECONDS), TimeUnit.SECONDS), page);
-
+                        .initElements(new AppiumFieldDecorator( ((WebDriverFacade) page.getDriver()).getProxiedDriver(),
+                                page.getImplicitWaitTimeout()), page);
                 return true;
             }
         });
-        setImplicitTimeout(30000, TimeUnit.MILLISECONDS);
+        setImplicitTimeout(30000, ChronoUnit.MILLIS);
     }
 
 }
+
