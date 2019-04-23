@@ -134,7 +134,6 @@
 #  - mvn -q clean verify -Dtags=$TEST_SUITE
 
 language: android
-os: windows
 
 jdk:
   - oraclejdk8
@@ -184,14 +183,14 @@ before_install:
   - npm install appium appium-doctor
 
   # Run appium-doctor
-  - ".\node_modules\.bin\appium-doctor"
+  - "./node_modules/.bin/appium-doctor"
 
   # Run appium in background and logging to appium_log.txt file
 #  - "./node_modules/.bin/appium --session-override --log-level info > ~/appium_log.txt &"
 
 before_script:
   - echo no | avdmanager create avd --force -n Pixel_XL_API_26 -k "system-images;android-26;google_apis;x86"
-  - $ANDROID_HOME\emulator\emulator -avd Pixel_XL_API_26 -no-audio -no-window &
+  - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_26 -no-audio -no-window &
 #  - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_26 -no-accel -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
@@ -202,7 +201,7 @@ before_script:
 ##  - /usr/local/android-sdk/platform-tools/adb shell am instrument -w io.appium.uiautomator2.server.test/android.support.test.runner.AndroidJUnitRunner
 
 script:
-  - ".\node_modules\.bin\appium &"
+  - "./node_modules/.bin/appium &"
   - mvn -q clean verify -Dtags=$TEST_SUITE
 
 #os: osx
