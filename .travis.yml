@@ -133,89 +133,89 @@
 #  - appium &
 #  - mvn -q clean verify -Dtags=$TEST_SUITE
 
-#language: android
-#sudo: false
-#
-#jdk:
-#  - oraclejdk8
-#
-#env:
-#  global:
-#    # include $HOME/.local/bin for `aws`
-#    - PATH=$HOME/.local/bin:$PATH
-#    # Add $JAVA_HOME/bin to PATH (for Appium executing)
-#    - PATH=$PATH:$JAVA_HOME/bin
-#
-#matrix:
-#  include:
-#    - if: commit_message =~ /android/
-#      env: TEST_SUITE="TravisTest"
-#
-#    - if: commit_message =~ /android/
-#      env: TEST_SUITE="TravisTest1"
-#
-#android:
-#  components:
-#    - tools
-#    - extra-google-m2repository
-#    - extra-android-m2repository
-#    - android-26
-#    - add-on
-#    - extra
-#    - sys-img-x86-android-26
-#    - extra-google-google_play_services
-#  licenses:
-#    - 'android-sdk-license-.+'
-#    - 'google-gdk-license-.+'
-#
-#before_install:
-#  - touch ~/.android/repositories.cfg
-##  - node -v
-#
-#  # Install the rest of tools (e.g. avdmanager)
-#  - echo y | sdkmanager tools
-#
-#  # Install the system image.
-#  - yes | sdkmanager "platforms;android-26"
-#  - yes | sdkmanager --install "system-images;android-26;google_apis;x86"
-#
-#  # Install appium and appium-doctor
-#  - nvm install 9
-#  - npm install appium@1.11.0 appium-doctor
-#
-#  # Run appium-doctor
-#  - "./node_modules/.bin/appium-doctor"
-#
-#  # Run appium in background and logging to appium_log.txt file
-##  - "./node_modules/.bin/appium --session-override --log-level info > ~/appium_log.txt &"
-#
-#before_script:
-#  - echo no | avdmanager create avd --force -n Pixel_XL_API_26 -k "system-images;android-26;google_apis;x86"
+language: android
+sudo: false
+
+jdk:
+  - oraclejdk8
+
+env:
+  global:
+    # include $HOME/.local/bin for `aws`
+    - PATH=$HOME/.local/bin:$PATH
+    # Add $JAVA_HOME/bin to PATH (for Appium executing)
+    - PATH=$PATH:$JAVA_HOME/bin
+
+matrix:
+  include:
+    - if: commit_message =~ /android/
+      env: TEST_SUITE="TravisTest"
+
+    - if: commit_message =~ /android/
+      env: TEST_SUITE="TravisTest1"
+
+android:
+  components:
+    - tools
+    - extra-google-m2repository
+    - extra-android-m2repository
+    - android-24
+    - add-on
+    - extra
+    - sys-img-x86-android-24
+    - extra-google-google_play_services
+  licenses:
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
+
+before_install:
+  - touch ~/.android/repositories.cfg
+#  - node -v
+
+  # Install the rest of tools (e.g. avdmanager)
+  - echo y | sdkmanager tools
+
+  # Install the system image.
+  - yes | sdkmanager "platforms;android-24"
+  - yes | sdkmanager --install "system-images;android-24;google_apis;x86"
+
+  # Install appium and appium-doctor
+  - nvm install 9
+  - npm install appium appium-doctor
+
+  # Run appium-doctor
+  - "./node_modules/.bin/appium-doctor"
+
+  # Run appium in background and logging to appium_log.txt file
+#  - "./node_modules/.bin/appium --session-override --log-level info > ~/appium_log.txt &"
+
+before_script:
+  - echo no | avdmanager create avd --force -n Pixel_XL_API_24 -k "system-images;android-26;google_apis;x86"
+  - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_24 -no-accel -no-audio -no-window &
 #  - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_26 -no-accel -no-audio -no-window &
-##  - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_26 -no-accel -no-audio -no-window &
-#  - android-wait-for-emulator
-#  - adb shell input keyevent 82 &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
 #  - /usr/local/android-sdk/platform-tools/adb -P 5037 -s emulator-5554 install -g /home/travis/build/antonzenkevich/travisAndroid/node_modules/appium/node_modules/io.appium.settings/apks/settings_apk-debug.apk
 #  - /usr/local/android-sdk/platform-tools/adb -P 5037 -s emulator-5554 install /home/travis/build/antonzenkevich/travisAndroid/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v3.1.1.apk
 #  - /usr/local/android-sdk/platform-tools/adb -P 5037 -s emulator-5554 install /home/travis/build/antonzenkevich/travisAndroid/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk
 #  - /usr/local/android-sdk/platform-tools/adb shell am instrument -w io.appium.uiautomator2.e2etest.test/android.support.test.runner.AndroidJUnitRunner
 ##  - /usr/local/android-sdk/platform-tools/adb shell am instrument -w io.appium.uiautomator2.server.test/android.support.test.runner.AndroidJUnitRunner
-#
-#script:
-#  - "./node_modules/.bin/appium --session-override &"
-#  - mvn -q clean verify -Dtags=$TEST_SUITE
 
-os: osx
-osx_image: xcode10.1
-language: java
-env:
-  matrix:
-    - TEST_SUITE="TravisTest"
-install:
-  - brew update
-  - cd /Users/travis/build/antonzenkevich/travisAndroid
-  - npm install -g appium
-  - brew cask install google-chrome
 script:
-  - appium &
+  - "./node_modules/.bin/appium &"
   - mvn -q clean verify -Dtags=$TEST_SUITE
+
+#os: osx
+#osx_image: xcode10.1
+#language: java
+#env:
+#  matrix:
+#    - TEST_SUITE="TravisTest"
+#install:
+#  - brew update
+#  - cd /Users/travis/build/antonzenkevich/travisAndroid
+#  - npm install -g appium
+#  - brew cask install google-chrome
+#script:
+#  - appium &
+#  - mvn -q clean verify -Dtags=$TEST_SUITE
