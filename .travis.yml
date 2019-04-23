@@ -181,7 +181,7 @@ before_install:
 
   # Install appium and appium-doctor
   - nvm install 9
-  - npm install appium@1.11.0 appium-doctor
+  - npm install appium@1.9.1 appium-doctor
 
   # Run appium-doctor
   - "./node_modules/.bin/appium-doctor"
@@ -195,7 +195,7 @@ before_script:
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
   - /usr/local/android-sdk/platform-tools/adb -P 5037 -s emulator-5554 install -g /home/travis/build/antonzenkevich/travisAndroid/node_modules/appium/node_modules/io.appium.settings/apks/settings_apk-debug.apk
-  - /usr/local/android-sdk/platform-tools/adb -P 5037 -s emulator-5554 install /home/travis/build/antonzenkevich/travisAndroid/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v3.1.1.apk
+  - /usr/local/android-sdk/platform-tools/adb -P 5037 -s emulator-5554 install /home/travis/build/antonzenkevich/travisAndroid/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v1.18.0.apk
   - /usr/local/android-sdk/platform-tools/adb shell pm list instrumentation
 #  - /usr/local/android-sdk/platform-tools/adb shell am instrument -w io.appium.uiautomator2.server.test/android.support.test.runner.AndroidJUnitRunner
 
