@@ -22,19 +22,4 @@ public abstract class SampleTest {
     @Steps
     public GeneralPageSteps generalPageSteps;
 
-    public AppiumDriver returnAppiumDriver() {
-        WebDriverFacade webDriverFacade = (WebDriverFacade) driver;
-        WebDriver webDriver = webDriverFacade.getProxiedDriver();
-
-        return (AppiumDriver) webDriver;
-    }
-
-    @Before
-    public void setup() {
-        returnAppiumDriver().closeApp();
-        System.out.println("close");
-        returnAppiumDriver().launchApp();
-        System.out.println("run");
-    }
-
 }
