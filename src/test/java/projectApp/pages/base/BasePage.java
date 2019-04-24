@@ -21,12 +21,12 @@ public abstract class BasePage extends PageObject {
             public boolean apply(PageObject page) {
 
                 PageFactory
-                        .initElements(new AppiumFieldDecorator( ((WebDriverFacade) page.getDriver()).getProxiedDriver(),
-                                page.getImplicitWaitTimeout()), page);
+                        .initElements(new AppiumFieldDecorator(((WebDriverFacade) page.getDriver()).getProxiedDriver(),
+                                page.getImplicitWaitTimeout().in(TimeUnit.SECONDS), TimeUnit.SECONDS), page);
                 return true;
             }
         });
-        setImplicitTimeout(30000, ChronoUnit.MILLIS);
+        setImplicitTimeout(30000, TimeUnit.MILLISECONDS);
     }
 
 }
