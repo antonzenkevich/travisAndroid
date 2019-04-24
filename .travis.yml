@@ -11,6 +11,11 @@ matrix:
       language: android
       os: linux
 
+    - if: commit_message =~ /android/
+      env: TEST_SUITE="TravisTest1"
+      language: android
+      os: linux
+
 android:
   licenses:
     - 'android-sdk-preview-license-.+'

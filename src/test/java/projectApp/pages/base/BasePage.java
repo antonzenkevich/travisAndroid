@@ -26,7 +26,7 @@ public abstract class BasePage extends PageObject {
                 return true;
             }
         });
-        setImplicitTimeout(40000, TimeUnit.MILLISECONDS);
+        setImplicitTimeout(30000, TimeUnit.MILLISECONDS);
     }
 
 }
