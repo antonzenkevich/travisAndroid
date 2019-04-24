@@ -1,20 +1,11 @@
 jdk: oraclejdk11
+language: android
+os: linux
 env:
+  - TEST_SUITE="TravisTest"
+  - TEST_SUITE="TravisTest1"
   global:
     - PATH=$HOME/.local/bin:$PATH
-matrix:
-  include:
-
-    # ###SUITES FOR TESTING###
-    - if: commit_message =~ /android/
-      env: TEST_SUITE="TravisTest"
-      language: android
-      os: linux
-
-    - if: commit_message =~ /android/
-      env: TEST_SUITE="TravisTest1"
-      language: android
-      os: linux
 
 android:
   licenses:
