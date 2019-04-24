@@ -17,7 +17,7 @@ public class GeneralPage extends BasePage {
     @AndroidFindBy(id = "ru.andrey.notepad:id/button1")
     private WebElement plusButton;
 
-    @AndroidFindBy(id="com.perchwell.re.staging:id/log_in")
+    @AndroidFindBy(id = "com.perchwell.re.staging:id/log_in")
     @iOSXCUITFindBy(accessibility = "LOG IN")
     private WebElement loginButton;
 
