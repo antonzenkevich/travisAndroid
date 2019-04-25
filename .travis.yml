@@ -64,6 +64,7 @@
 #    fi
 
 jdk: openjdk12
+sudo: required
 
 matrix:
   include:
