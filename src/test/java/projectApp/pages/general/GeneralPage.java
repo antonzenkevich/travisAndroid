@@ -2,6 +2,8 @@ package projectApp.pages.general;
 
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
+import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.annotations.findby.How;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import projectApp.pages.base.BasePage;
@@ -18,7 +20,8 @@ public class GeneralPage extends BasePage {
     private WebElement plusButton;
 
     @AndroidFindBy(id = "com.perchwell.re.staging:id/log_in")
-    @iOSXCUITFindBy(accessibility = "LOG IN")
+//    @iOSXCUITFindBy(accessibility = "LOG IN")
+    @FindBy(how = How.ACCESSIBILITY_ID, using = "LOG IN")
     private WebElement loginButton;
 
     @AndroidFindBy(id = "com.perchwell.re.staging:id/email")

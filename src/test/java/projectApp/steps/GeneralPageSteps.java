@@ -23,8 +23,8 @@ public class GeneralPageSteps extends ScenarioSteps{
     @Step
     public void loginAsClient(String email, String password) {
         atPage.clickOnLoginButton();
-        atPage.setEmail(email);
-        atPage.setPassword(password);
-        atPage.clickOnLoginButton();
+//        atPage.setEmail(email);
+//        atPage.setPassword(password);
+//        atPage.clickOnLoginButton();
     }
 }
