@@ -63,8 +63,8 @@
 #      mvn -q clean verify -Dtags=$TEST_SUITE
 #    fi
 
-jdk: openjdk12
 sudo: required
+language: java
 
 matrix:
   include:
@@ -72,13 +72,13 @@ matrix:
       env: TEST_SUITE="TravisTest"
       os: osx
       osx_image: xcode10.2
-      language: java
+      jdk: openjdk12
 
     - if: commit_message =~ /ios/
       env: TEST_SUITE="TravisTest1"
       os: osx
       osx_image: xcode10.2
-      language: java
+      jdk: openjdk12
 
 install:
   - |
