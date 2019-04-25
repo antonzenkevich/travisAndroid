@@ -1,12 +1,11 @@
-jdk: oraclejdk11
+jdk: openjdk12
 language: android
 os: linux
 env:
   global:
       - PATH=$HOME/.local/bin:$PATH
   matrix:
-    - TEST_SUITE="TravisTest"
-    - TEST_SUITE="TravisTest1"
+    - TEST_SUITE="TravisTest123"
 
 android:
   licenses:

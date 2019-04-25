@@ -7,24 +7,44 @@ import projectApp.pages.general.GeneralPage;
 
 public class GeneralPageSteps extends ScenarioSteps{
 
-    GeneralPage atPage;
+    GeneralPage onPage;
 
     @Step
     public void isPlusButton() {
-        Assert.assertTrue(atPage.plusButtonIsDisplayed());
+        Assert.assertTrue(onPage.plusButtonIsDisplayed());
     }
 
     @Step
     public void clickOnPlusButton() {
-        atPage.clickOnPlusButton();
+        onPage.clickOnPlusButton();
         waitABit(10000);
     }
 
     @Step
     public void loginAsClient(String email, String password) {
-        atPage.clickOnLoginButton();
-        atPage.setEmail(email);
-        atPage.setPassword(password);
-        atPage.clickOnLoginButton();
+        onPage.clickOnLoginButton();
+        onPage.setEmail(email);
+        onPage.setPassword(password);
+        onPage.clickOnLoginButton();
     }
+
+    @Step
+    public void clickOnOpenAccountButton() {
+        onPage.clickOnOpenAccountButton();
+    }
+
+    @Step
+    public void shouldSeeOptionAgents() {
+        onPage.optionAgentsIsDisplayed();
+    }
+
+    @Step
+    public void shouldSeeOptionDiscussions() {
+        onPage.optionDiscussionsIsDisplayed();
+    }
+    @Step
+    public void shouldSeeOptionTags() {
+        onPage.optionTagsIsDisplayed();
+    }
+
 }

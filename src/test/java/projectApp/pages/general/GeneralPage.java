@@ -2,6 +2,7 @@ package projectApp.pages.general;
 
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
+import net.serenitybdd.core.annotations.ImplementedBy;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.annotations.findby.How;
 import org.openqa.selenium.WebDriver;
@@ -32,6 +33,22 @@ public class GeneralPage extends BasePage {
     @iOSXCUITFindBy(iOSClassChain = "**/XCUIElementTypeSecureTextField")
     private WebElement passwordField;
 
+    @AndroidFindBy(id = "com.perchwell.re.staging:id/background_image")
+    @iOSXCUITFindBy(accessibility = "Account Bar Button")
+    private WebElement openAccountButton;
+
+    @AndroidFindBy(xpath = "//*[@text='AGENTS']")
+    @iOSXCUITFindBy(accessibility = "AGENTS")
+    private WebElement agentsLabel;
+
+    @AndroidFindBy(accessibility = "DISCUSSIONS")
+    @iOSXCUITFindBy(accessibility = "DISCUSSIONS")
+    private WebElement discussionsLabel;
+
+    @AndroidFindBy(accessibility = "TAGS")
+    @iOSXCUITFindBy(accessibility = "TAGS")
+    private WebElement tagsLabel;
+
     public boolean plusButtonIsDisplayed() {
         return element(plusButton).isDisplayed();
     }
@@ -60,5 +77,21 @@ public class GeneralPage extends BasePage {
     public void setPassword(String password) {
 //        element(passwordField).type(password);
         element(passwordField).sendKeys(password);
+    }
+
+    public void clickOnOpenAccountButton() {
+        element(openAccountButton).click();
+    }
+
+    public void optionAgentsIsDisplayed() {
+        element(agentsLabel).shouldBeVisible();
+    }
+
+    public void optionDiscussionsIsDisplayed() {
+        element(discussionsLabel).shouldBeVisible();
+    }
+
+    public void optionTagsIsDisplayed() {
+        element(tagsLabel).shouldBeVisible();
     }
 }
