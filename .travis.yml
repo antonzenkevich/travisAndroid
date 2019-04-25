@@ -25,6 +25,7 @@ android:
     - sys-img-armeabi-v7a-android-24
 
 install:
+  - android list device
   - |
     if [[ $TRAVIS_OS_NAME == "linux" ]]; then
       sudo apt-get update
