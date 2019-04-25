@@ -63,7 +63,7 @@
 #      mvn -q clean verify -Dtags=$TEST_SUITE
 #    fi
 
-jdk: oraclejdk12
+jdk: oraclejdk11
 
 matrix:
   include:
