@@ -26,27 +26,27 @@ public class GeneralPage extends BasePage {
     private WebElement loginButton;
 
     @AndroidFindBy(id = "com.perchwell.re.staging:id/email")
-    @iOSXCUITFindBy(iOSClassChain = "**/XCUIElementTypeTextField")
+    @FindBy(how = How.IOS_CLASS_CHAIN, using = "**/XCUIElementTypeTextField")
     private WebElement emailTextBox;
 
     @AndroidFindBy(id = "com.perchwell.re.staging:id/password")
-    @iOSXCUITFindBy(iOSClassChain = "**/XCUIElementTypeSecureTextField")
+    @FindBy(how = How.IOS_CLASS_CHAIN, using = "**/XCUIElementTypeSecureTextField")
     private WebElement passwordField;
 
     @AndroidFindBy(id = "com.perchwell.re.staging:id/background_image")
-    @iOSXCUITFindBy(accessibility = "Account Bar Button")
+    @FindBy(how = How.ACCESSIBILITY_ID, using = "Account Bar Button")
     private WebElement openAccountButton;
 
     @AndroidFindBy(xpath = "//*[@text='AGENTS']")
-    @iOSXCUITFindBy(accessibility = "AGENTS")
+    @FindBy(how = How.ACCESSIBILITY_ID, using = "AGENTS")
     private WebElement agentsLabel;
 
     @AndroidFindBy(accessibility = "DISCUSSIONS")
-    @iOSXCUITFindBy(accessibility = "DISCUSSIONS")
+    @FindBy(how = How.ACCESSIBILITY_ID, using = "DISCUSSIONS")
     private WebElement discussionsLabel;
 
     @AndroidFindBy(accessibility = "TAGS")
-    @iOSXCUITFindBy(accessibility = "TAGS")
+    @FindBy(how = How.ACCESSIBILITY_ID, using = "TAGS")
     private WebElement tagsLabel;
 
     public boolean plusButtonIsDisplayed() {
