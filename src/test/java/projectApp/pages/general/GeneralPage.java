@@ -21,11 +21,11 @@ public class GeneralPage extends BasePage {
     @iOSXCUITFindBy(accessibility = "LOG IN")
     private WebElement loginButton;
 
-    @AndroidFindBy(id ="com.perchwell.re.staging:id/email")
+    @AndroidFindBy(id = "com.perchwell.re.staging:id/email")
     @iOSXCUITFindBy(iOSClassChain = "**/XCUIElementTypeTextField")
     private WebElement emailTextBox;
 
-    @AndroidFindBy(id ="com.perchwell.re.staging:id/password")
+    @AndroidFindBy(id = "com.perchwell.re.staging:id/password")
     @iOSXCUITFindBy(iOSClassChain = "**/XCUIElementTypeSecureTextField")
     private WebElement passwordField;
 
@@ -37,7 +37,7 @@ public class GeneralPage extends BasePage {
         element(plusButton).click();
     }
 
-    public void clickOnLoginButton(){
+    public void clickOnLoginButton() {
 //        System.out.println(getImplicitWaitTimeout());
 
 //
