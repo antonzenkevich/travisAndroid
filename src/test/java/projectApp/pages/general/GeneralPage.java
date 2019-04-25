@@ -21,6 +21,14 @@ public class GeneralPage extends BasePage {
     @iOSXCUITFindBy(accessibility = "LOG IN")
     private WebElement loginButton;
 
+    @AndroidFindBy(id ="com.perchwell.re.staging:id/email")
+    @iOSXCUITFindBy(iOSClassChain = "**/XCUIElementTypeTextField")
+    private WebElement emailTextBox;
+
+    @AndroidFindBy(id ="com.perchwell.re.staging:id/password")
+    @iOSXCUITFindBy(iOSClassChain = "**/XCUIElementTypeSecureTextField")
+    private WebElement passwordField;
+
     public boolean plusButtonIsDisplayed() {
         return element(plusButton).isDisplayed();
     }
@@ -39,5 +47,15 @@ public class GeneralPage extends BasePage {
 //        waitABit(5000);
         element(loginButton).click();
 //        waitABit(5000);
+    }
+
+    public void setEmail(String email) {
+//      element(emailTextBox).type(email);
+        element(emailTextBox).sendKeys(email);
+    }
+
+    public void setPassword(String password) {
+//        element(passwordField).type(password);
+        element(passwordField).sendKeys(password);
     }
 }
