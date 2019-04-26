@@ -13,7 +13,7 @@ public class test2 extends SampleTest {
     @Test
     public void logInAsClient() {
         if(getDriver().getPageSource().contains("Process system isn't responding")) {
-            getDriver().findElement(MobileBy.id("android:id/aerr_close")).click();
+            getDriver().findElement(MobileBy.xpath("//android.widget.Button[@resource-id='android:id/aerr_close']")).click();
         }
         generalPageSteps.loginAsClient("test-android+mgmt-core@perchwell.com","perchwell");
         generalPageSteps.skipAllHints();
