@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import projectApp.pages.base.BasePage;
 
-import static java.time.temporal.ChronoUnit.SECONDS;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class GeneralPage extends BasePage {
 

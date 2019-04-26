@@ -9,11 +9,10 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <serenity.version>2.0.48</serenity.version>
-        <serenity.maven.version>2.0.48</serenity.maven.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <encoding>UTF-8</encoding>
-        <!--<testEnvironment>local</testEnvironment>-->
+        <serenity.version>1.7.5</serenity.version>
+        <serenity.cucumber.version>1.6.3</serenity.cucumber.version>
+        <serenity.maven.version>1.7.5</serenity.maven.version>
     </properties>
 
 
@@ -41,6 +40,20 @@
     </pluginRepositories>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.5</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.gpedro.integrations.slack</groupId>
+            <artifactId>slack-webhook</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
@@ -131,16 +144,9 @@
         </dependency>
 
         <dependency>
-            <groupId>io.appium</groupId>
-            <artifactId>java-client</artifactId>
-            <version>7.0.0</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.squareup.okio/okio -->
-        <dependency>
-            <groupId>com.squareup.okio</groupId>
-            <artifactId>okio</artifactId>
-            <version>2.2.2</version>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>2.1.0</version>
         </dependency>
 
 
@@ -162,15 +168,8 @@
                 <version>2.19.1</version>
                 <configuration>
                     <includes>
-                        <!--<include>**/tests/*.java</include>-->
-                        <include>**/*.java</include>
-
+                        <include>**/tests/*/*.java</include>
                     </includes>
-                    <systemPropertyVariables>
-                        <!--<properties>./serenity.${testEnvironment}.properties</properties>-->
-                        <!--<testEnvironment>${testEnvironment}</testEnvironment>-->
-                        <enableSerenity>true</enableSerenity>
-                    </systemPropertyVariables>
                     <!--<reuseForks>true</reuseForks>-->
                     <!--<forkCount>1</forkCount>-->
                     <!--<argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>-->
@@ -212,5 +211,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
