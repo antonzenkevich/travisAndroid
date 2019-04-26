@@ -74,7 +74,11 @@ public class GeneralPage extends BasePage {
     }
 
     public void clickOnLoginButton() {
-        element(closeERROR).click();
+        if(Config.isAndroid()) {
+            if(closeERROR.isDisplayed()) {
+                element(closeERROR).click();
+            }
+        }
 //        System.out.println(getImplicitWaitTimeout());
 
 //
