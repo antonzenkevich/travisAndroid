@@ -35,9 +35,9 @@ public class GeneralPage extends BasePage {
     @FindBy(how = How.ACCESSIBILITY_ID, using = "Account Bar Button")
     private WebElement openAccountButton;
 
-    @AndroidFindBy(xpath = "//*[@text='AGENTS']")
-    @FindBy(how = How.ACCESSIBILITY_ID, using = "AGENTS")
-    private WebElement agentsLabel;
+    @AndroidFindBy(accessibility = "CLIENTS")
+    @FindBy(how = How.ACCESSIBILITY_ID, using = "CLIENTS")
+    private WebElement clientsLabel;
 
     @AndroidFindBy(accessibility = "DISCUSSIONS")
     @FindBy(how = How.ACCESSIBILITY_ID, using = "DISCUSSIONS")
@@ -90,7 +90,7 @@ public class GeneralPage extends BasePage {
     }
 
     public void optionAgentsIsDisplayed() {
-        element(agentsLabel).shouldBeVisible();
+        element(clientsLabel).shouldBeVisible();
     }
 
     public void optionDiscussionsIsDisplayed() {
