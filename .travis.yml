@@ -3,9 +3,10 @@ language: android
 os: linux
 env:
   global:
-      - PATH=$HOME/.local/bin:$PATH
+    - PATH=$HOME/.local/bin:$PATH
   matrix:
     - TEST_SUITE="TravisTest123"
+    - TEST_SUITE="TravisTest1"
 
 android:
   licenses:

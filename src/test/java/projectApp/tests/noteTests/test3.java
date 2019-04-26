@@ -4,11 +4,14 @@ import net.thucydides.core.annotations.WithTagValuesOf;
 import org.junit.Test;
 import projectApp.SampleTest;
 
+import static net.thucydides.core.webdriver.ThucydidesWebDriverSupport.getDriver;
+
 @WithTagValuesOf({"TravisTest123", "TravisTest1"})
 public class test3 extends SampleTest {
 
     @Test
     public void logInAsClient() {
+        System.out.println(getDriver().getPageSource()); //need to remove
         generalPageSteps.loginAsClient("test-android+mgmt-core@perchwell.com","perchwell");
         generalPageSteps.skipAllHints();
         generalPageSteps.clickNotNowButton();
