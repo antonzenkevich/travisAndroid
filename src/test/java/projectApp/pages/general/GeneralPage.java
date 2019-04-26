@@ -74,29 +74,14 @@ public class GeneralPage extends BasePage {
     }
 
     public void clickOnLoginButton() {
-        if(Config.isAndroid()) {
-            if(element(closeERROR).isVisible()) {
-                element(closeERROR).click();
-            }
-        }
-//        System.out.println(getImplicitWaitTimeout());
-
-//
-//        setImplicitTimeout(5, TimeUnit.SECONDS);
-//        System.out.println(getImplicitWaitTimeout());
-//
-//        waitABit(5000);
         element(loginButton).click();
-//        waitABit(5000);
     }
 
     public void setEmail(String email) {
-//      element(emailTextBox).type(email);
         element(emailTextBox).sendKeys(email);
     }
 
     public void setPassword(String password) {
-//        element(passwordField).type(password);
         element(passwordField).sendKeys(password);
     }
 

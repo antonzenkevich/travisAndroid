@@ -1,5 +1,6 @@
 package projectApp.tests.noteTests;
 
+import io.appium.java_client.MobileBy;
 import net.thucydides.core.annotations.WithTagValuesOf;
 import org.junit.Test;
 import projectApp.SampleTest;
@@ -11,8 +12,9 @@ public class test3 extends SampleTest {
 
     @Test
     public void logInAsClient() {
-        System.out.println(getDriver().getPageSource()); //need to remove
-        generalPageSteps.loginAsClient("test-android+mgmt-core@perchwell.com","perchwell");
+        if(getDriver().getPageSource().contains("Process system isn't responding")) {
+            getDriver().findElement(MobileBy.xpath("//android.widget.Button[resource-id='android:id/aerr_close']")).click();
+        }        generalPageSteps.loginAsClient("test-android+mgmt-core@perchwell.com","perchwell");
         generalPageSteps.skipAllHints();
         generalPageSteps.clickNotNowButton();
         generalPageSteps.clickOnOpenAccountButton();
