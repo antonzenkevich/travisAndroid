@@ -12,7 +12,7 @@ public class test9 extends SampleTest {
 
     @Test
     public void logInAsClient() {
-        if(getDriver().getPageSource().contains("Process system isn't responding")) {
+        if(getDriver().getPageSource().contains("Launcher3 isn't responding")) {
             getDriver().findElement(MobileBy.xpath("//android.widget.Button[@resource-id='android:id/aerr_close']")).click();
         }
         System.out.println(getDriver().getPageSource());
