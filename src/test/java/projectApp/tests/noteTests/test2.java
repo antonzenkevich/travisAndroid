@@ -10,6 +10,8 @@ public class test2 extends SampleTest {
     @Test
     public void logInAsClient() {
         generalPageSteps.loginAsClient("test-android+mgmt-core@perchwell.com","perchwell");
+        generalPageSteps.skipAllHints();
+        generalPageSteps.clickNotNowButton();
         generalPageSteps.clickOnOpenAccountButton();
         generalPageSteps.shouldSeeOptionAgents();
         generalPageSteps.shouldSeeOptionDiscussions();

@@ -1,15 +1,13 @@
 package projectApp.pages.general;
 
 import io.appium.java_client.pagefactory.AndroidFindBy;
-import io.appium.java_client.pagefactory.iOSXCUITFindBy;
-import net.serenitybdd.core.annotations.ImplementedBy;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.annotations.findby.How;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import projectApp.pages.base.BasePage;
 
-import java.util.concurrent.TimeUnit;
+import static java.time.temporal.ChronoUnit.SECONDS;
 
 public class GeneralPage extends BasePage {
 
@@ -48,6 +46,21 @@ public class GeneralPage extends BasePage {
     @AndroidFindBy(accessibility = "TAGS")
     @FindBy(how = How.ACCESSIBILITY_ID, using = "TAGS")
     private WebElement tagsLabel;
+
+    @FindBy(how = How.ACCESSIBILITY_ID, using = "EXPLORE SEARCH RESULTS BY LOCATION")
+    private WebElement exploreSearchResultHint;
+
+    @FindBy(how = How.ACCESSIBILITY_ID, using = "TRANSFORM DATA INTO MARKET INSIGHTS")
+    private WebElement transformDataHint;
+
+    @FindBy(how = How.ACCESSIBILITY_ID, using = "EDIT SEARCH FILTERS OR SEARCH FOR A SPECIFIC ADDRESS")
+    private WebElement editSearchFiltersHint;
+
+    @FindBy(how = How.ACCESSIBILITY_ID, using = "MANAGE YOUR PROFILE, CONTACTS, DISCUSSIONS, AND TAGS")
+    private WebElement manageYourProfileHint;
+
+    @FindBy(how = How.ACCESSIBILITY_ID, using = "NOT NOW")
+    private WebElement notNowButton;
 
     public boolean plusButtonIsDisplayed() {
         return element(plusButton).isDisplayed();
@@ -93,5 +106,33 @@ public class GeneralPage extends BasePage {
 
     public void optionTagsIsDisplayed() {
         element(tagsLabel).shouldBeVisible();
+    }
+
+    public void clickOnEditSearchFiltersHint() {
+        setImplicitTimeout(1, SECONDS);
+        element(editSearchFiltersHint).click();
+        resetImplicitTimeout();
+    }
+
+    public void clickOnManageYourProfileHint() {
+        setImplicitTimeout(1, SECONDS);
+        element(manageYourProfileHint).click();
+        resetImplicitTimeout();
+    }
+
+    public void clickOnTransformDataHint() {
+        setImplicitTimeout(1, SECONDS);
+        element(transformDataHint).click();
+        resetImplicitTimeout();
+    }
+
+    public void clickExploreSearchResultHint() {
+        setImplicitTimeout(1, SECONDS);
+        element(exploreSearchResultHint).click();
+        resetImplicitTimeout();
+    }
+
+    public void clickOnNotNowButton() {
+        element(notNowButton).click();
     }
 }

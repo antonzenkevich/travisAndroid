@@ -3,6 +3,7 @@ package projectApp.steps;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.junit.Assert;
+import projectApp.pages.general.Config;
 import projectApp.pages.general.GeneralPage;
 
 public class GeneralPageSteps extends ScenarioSteps{
@@ -47,4 +48,20 @@ public class GeneralPageSteps extends ScenarioSteps{
         onPage.optionTagsIsDisplayed();
     }
 
+    @Step
+    public void skipAllHints() {
+        if(!Config.isAndroid()) {
+            onPage.clickOnEditSearchFiltersHint();
+            onPage.clickOnManageYourProfileHint();
+            onPage.clickOnTransformDataHint();
+            onPage.clickExploreSearchResultHint();
+        }
+    }
+
+    @Step
+    public void clickNotNowButton () {
+        if(!Config.isAndroid()) {
+            onPage.clickOnNotNowButton();
+        }
+    }
 }
