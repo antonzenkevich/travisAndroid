@@ -62,6 +62,9 @@ public class GeneralPage extends BasePage {
     @FindBy(how = How.ACCESSIBILITY_ID, using = "NOT NOW")
     private WebElement notNowButton;
 
+    @AndroidFindBy(id = "android:id/aerr_close")
+    private WebElement closeERROR;
+
     public boolean plusButtonIsDisplayed() {
         return element(plusButton).isDisplayed();
     }
@@ -71,6 +74,7 @@ public class GeneralPage extends BasePage {
     }
 
     public void clickOnLoginButton() {
+        element(closeERROR).click();
 //        System.out.println(getImplicitWaitTimeout());
 
 //
