@@ -15,6 +15,7 @@ public class test3 extends SampleTest {
         if(getDriver().getPageSource().contains("Process system isn't responding")) {
             getDriver().findElement(MobileBy.xpath("//android.widget.Button[@resource-id='android:id/aerr_close']")).click();
         }
+        System.out.println(getDriver().getPageSource());
         generalPageSteps.loginAsClient("test-android+mgmt-core@perchwell.com","perchwell");
         generalPageSteps.skipAllHints();
         generalPageSteps.clickNotNowButton();
