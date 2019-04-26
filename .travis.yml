@@ -1,99 +1,99 @@
-jdk: oraclejdk11
-language: android
-os: linux
-env:
-  global:
-      - PATH=$HOME/.local/bin:$PATH
-  matrix:
-    - TEST_SUITE="TravisTest123"
-
-android:
-  licenses:
-    - 'android-sdk-preview-license-.+'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
-  components:
-    - tools
-    - tools
-    - platform-tools
-    - extra-google-google_play_services
-    - extra-google-m2repository
-    - extra-android-m2repository
-    - build-tools-26.0.1
-    - android-24
-    - sys-img-armeabi-v7a-android-24
-
-install:
-  - |
-    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-      sudo apt-get update
-      sudo apt-get install build-essential libssl-dev
-      sudo curl https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-      source ~/.profile
-      nvm install 10.15.3
-      nvm use 10.15.3
-      npm install -g appium@1.10.0
-    fi
-
-before_script:
-  - |
-    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-      echo no | android create avd --force -n Pixel_XL_API_24 --abi armeabi-v7a -t 1
-      emulator -avd Pixel_XL_API_24 -no-window -scale 1080x1920 &
-      android-wait-for-emulator
-      adb shell input keyevent 82
-    fi
-
-  - |
-    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-      adb -P 5037 -s emulator-5554 install -g /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/io.appium.settings/apks/settings_apk-debug.apk
-      adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v3.5.1.apk
-    fi
-
-script:
-  - |
-    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-      adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk
-    fi
-
-  - |
-    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-      appium &
-      mvn -q clean verify -Dtags=$TEST_SUITE
-    fi
-
-#sudo: required
-#language: java
+#jdk: oraclejdk11
+#language: android
+#os: linux
+#env:
+#  global:
+#      - PATH=$HOME/.local/bin:$PATH
+#  matrix:
+#    - TEST_SUITE="TravisTest123"
 #
-#matrix:
-#  include:
-#    - if: commit_message =~ /ios/
-#      env: TEST_SUITE="TravisTest"
-#      os: osx
-#      osx_image: xcode10.2
-#      jdk: openjdk12
+#android:
+#  licenses:
+#    - 'android-sdk-preview-license-.+'
+#    - 'android-sdk-license-.+'
+#    - 'google-gdk-license-.+'
+#  components:
+#    - tools
+#    - tools
+#    - platform-tools
+#    - extra-google-google_play_services
+#    - extra-google-m2repository
+#    - extra-android-m2repository
+#    - build-tools-26.0.1
+#    - android-24
+#    - sys-img-armeabi-v7a-android-24
 #
+#install:
+#  - |
+#    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
+#      sudo apt-get update
+#      sudo apt-get install build-essential libssl-dev
+#      sudo curl https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+#      source ~/.profile
+#      nvm install 10.15.3
+#      nvm use 10.15.3
+#      npm install -g appium@1.10.0
+#    fi
+#
+#before_script:
+#  - |
+#    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
+#      echo no | android create avd --force -n Pixel_XL_API_24 --abi armeabi-v7a -t 1
+#      emulator -avd Pixel_XL_API_24 -no-window -scale 1080x1920 &
+#      android-wait-for-emulator
+#      adb shell input keyevent 82
+#    fi
+#
+#  - |
+#    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
+#      adb -P 5037 -s emulator-5554 install -g /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/io.appium.settings/apks/settings_apk-debug.apk
+#      adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v3.5.1.apk
+#    fi
+#
+#script:
+#  - |
+#    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
+#      adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk
+#    fi
+#
+#  - |
+#    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
+#      appium &
+#      mvn -q clean verify -Dtags=$TEST_SUITE
+#    fi
+
+sudo: required
+language: java
+
+matrix:
+  include:
+    - if: commit_message =~ /ios/
+      env: TEST_SUITE="TravisTest123"
+      os: osx
+      osx_image: xcode10.2
+      jdk: openjdk12
+
 #    - if: commit_message =~ /ios/
 #      env: TEST_SUITE="TravisTest1"
 #      os: osx
 #      osx_image: xcode10.2
 #      jdk: openjdk12
-#
-#install:
-#  - |
-#    if [[ $TRAVIS_OS_NAME == "osx" ]]; then
-#      brew update
-#      brew install awscli
-#      cd /Users/travis/build/antonzenkevich/travisAndroid
-#      unzip "Perchwell Staging.zip"
-#      npm install -g appium
-#      brew cask install google-chrome
-#    fi
-#
-#script:
-#
-#  - |
-#    if [[ $TRAVIS_OS_NAME == "osx" ]]; then
-#      appium &
-#      mvn -q clean verify -Dtags=$TEST_SUITE -DtestEnvironment=ios
-#    fi
+
+install:
+  - |
+    if [[ $TRAVIS_OS_NAME == "osx" ]]; then
+      brew update
+      brew install awscli
+      cd /Users/travis/build/antonzenkevich/travisAndroid
+      unzip "Perchwell Staging.zip"
+      npm install -g appium
+      brew cask install google-chrome
+    fi
+
+script:
+
+  - |
+    if [[ $TRAVIS_OS_NAME == "osx" ]]; then
+      appium &
+      mvn -q clean verify -Dtags=$TEST_SUITE -DtestEnvironment=ios
+    fi
