@@ -75,7 +75,7 @@ public class GeneralPage extends BasePage {
 
     public void clickOnLoginButton() {
         if(Config.isAndroid()) {
-            if(closeERROR.isDisplayed()) {
+            if(element(closeERROR).isVisible()) {
                 element(closeERROR).click();
             }
         }
