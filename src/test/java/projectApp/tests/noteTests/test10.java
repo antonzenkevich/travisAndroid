@@ -12,7 +12,7 @@ public class test10 extends SampleTest {
 
     @Test
     public void logInAsClient() {
-        if(getDriver().getPageSource().contains("Launcher3 isn't responding")) {
+        if(getDriver().getPageSource().contains(" isn't responding")) {
             getDriver().findElement(MobileBy.xpath("//android.widget.Button[@resource-id='android:id/aerr_close']")).click();
         }
         generalPageSteps.loginAsClient("test-android+mgmt-core@perchwell.com","perchwell");
