@@ -38,9 +38,9 @@ before_install:
   # Accept licenses before installing components, no need to echo y for each component
   - yes | sdkmanager --licenses
   # Platform tools
-  - $ANDROID_HOME/tools/sdkmanager "emulator" "tools" "platform-tools" > /dev/null
+  - sdkmanager "emulator" "tools" "platform-tools" > /dev/null
   # install older build tools (for emulator)
-  - $ANDROID_HOME/tools/sdkmanager "build-tools;28.0.3" "platforms;android-24" > /dev/null
+  - sdkmanager "build-tools;28.0.3" "platforms;android-24" > /dev/null
   # Create and start emulator.
   - sdkmanager "system-images;android-24;arm64-v8a" > /dev/null
   - sdkmanager --list
