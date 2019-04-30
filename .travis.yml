@@ -1,5 +1,4 @@
 jdk: oraclejdk8
-os: linux
 sudo: required
 dist: trusty
 env:
@@ -24,7 +23,15 @@ android:
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
   components:
-    - build-tools 28.0.3
+    - tools
+    - tools
+    - platform-tools
+    - extra-google-google_play_services
+    - extra-google-m2repository
+    - extra-android-m2repository
+    - build-tools-28.0.3
+    - android-24
+    - sys-img-arm64-v8a-android-24
 
 before_install:
   - ANDROID_TOOLS=4333796 # android-28
@@ -37,14 +44,14 @@ before_install:
   - mkdir -p ~/.android
   - touch ~/.android/repositories.cfg
   # Accept licenses before installing components, no need to echo y for each component
+  - yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
   # Platform tools
   - $ANDROID_HOME/tools/bin/sdkmanager "emulator" "tools" "platform-tools" > /dev/null
   # install older build tools (for emulator)
-  - $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-24" > /dev/null
+  - $ANDROID_HOME/tools/bin/sdkmanager "build-tools;28.0.3" "platforms;android-24" > /dev/null
   - $ANDROID_HOME/tools/bin/sdkmanager "extras;google;m2repository" "extras;google;google_play_services" "extras;android;m2repository" > /dev/null
   # Create and start emulator.
   - $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-24;default;arm64-v8a" > /dev/null
-  - $ANDROID_HOME/tools/bin/sdkmanager --list
   - rm -rf $ANDROID_HOME/emulator
   # Install latest canary of emulator
   - $ANDROID_HOME/tools/android list device
@@ -53,12 +60,13 @@ before_install:
   - wget -q "https://dl.google.com/android/repository/emulator-linux-5438295.zip" -O emulator.zip
   - unzip -q emulator.zip
   - cd -
-  - echo no | avdmanager create avd -n Pixel_XL_API_24 -k "system-images;android-24;default;arm64-v8a" --device 19
+  - android list device
+  - $ANDROID_HOME/tools/android list device
+  - echo no | $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_XL_API_24 -k "system-images;android-24;default;arm64-v8a" --device 19
   - avdmanager list avd
   - avdmanager list target
-  - android-wait-for-emulator
   - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_24 -no-window -no-audio &
-  - $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
+  - android-wait-for-emulator
   - $ANDROID_HOME/platform-tools/adb shell input keyevent 82
 
 install:
