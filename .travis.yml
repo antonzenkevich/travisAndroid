@@ -26,11 +26,11 @@ before_install:
   - mkdir -p ~/.android
   - touch ~/.android/repositories.cfg
   # Accept licenses before installing components, no need to echo y for each component
-  - yes | sdkmanager --licenses
+  - $ANDROID_HOME/tools/yes | sdkmanager --licenses
   # Platform tools
-  - sdkmanager "emulator" "tools" "platform-tools" > /dev/null
+  - $ANDROID_HOME/tools/sdkmanager "emulator" "tools" "platform-tools" > /dev/null
   # install older build tools (for emulator)
-  - sdkmanager "build-tools;28.0.3" "platforms;android-24" > /dev/null
+  - $ANDROID_HOME/tools/sdkmanager "build-tools;28.0.3" "platforms;android-24" > /dev/null
   # Create and start emulator.
   - sdkmanager "system-images;android-24;arm64-v8a" > /dev/null
   - sdkmanager --list
