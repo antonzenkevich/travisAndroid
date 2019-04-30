@@ -38,13 +38,13 @@ before_install:
   - touch ~/.android/repositories.cfg
   # Accept licenses before installing components, no need to echo y for each component
   # Platform tools
-  - sdkmanager "emulator" "tools" "platform-tools" > /dev/null
+  - $ANDROID_HOME/tools/bin/sdkmanager "emulator" "tools" "platform-tools" > /dev/null
   # install older build tools (for emulator)
-  - sdkmanager "platforms;android-24" > /dev/null
-  - sdkmanager "extras;google;m2repository" "extras;google;google_play_services" "extras;android;m2repository" > /dev/null
+  - $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-24" > /dev/null
+  - $ANDROID_HOME/tools/bin/sdkmanager "extras;google;m2repository" "extras;google;google_play_services" "extras;android;m2repository" > /dev/null
   # Create and start emulator.
-  - sdkmanager "system-images;android-24;default;arm64-v8a" > /dev/null
-  - sdkmanager --list
+  - $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-24;default;arm64-v8a" > /dev/null
+  - $ANDROID_HOME/tools/bin/sdkmanager --list
   - rm -rf $ANDROID_HOME/emulator
   # Install latest canary of emulator
   - $ANDROID_HOME/tools/android list device
