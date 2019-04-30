@@ -10,19 +10,19 @@ matrix:
   include:
     - if: commit_message =~ /android/
       env: TEST_SUITE="SmokeTestSuit"
-      language: generic
+      language: android
       os: linux
 
     - if: commit_message =~ /android/
       env: TEST_SUITE="TravisTest123"
-      language: generic
+      language: android
       os: linux
 
-#android:
-#  components:
-#    - extra-google-google_play_services
-#    - extra-google-m2repository
-#    - extra-android-m2repository
+android:
+  licenses:
+    - 'android-sdk-preview-license-.+'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
 
 before_install:
   - ANDROID_TOOLS=4333796 # android-28
@@ -35,7 +35,6 @@ before_install:
   - mkdir -p ~/.android
   - touch ~/.android/repositories.cfg
   # Accept licenses before installing components, no need to echo y for each component
-  - yes | sdkmanager --licenses
   # Platform tools
   - sdkmanager "emulator" "tools" "platform-tools" > /dev/null
   # install older build tools (for emulator)
