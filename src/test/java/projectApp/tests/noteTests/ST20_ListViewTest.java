@@ -1,10 +1,10 @@
-package projectApp.tests.noteTests.testsPerch;
+package projectApp.tests.noteTests;
 
 import net.thucydides.core.annotations.WithTagValuesOf;
 import org.junit.Test;
 import projectApp.SampleTest;
 
-@WithTagValuesOf({"SmokeTestSuit"})
+@WithTagValuesOf("SmokeTestSuit")
 public class ST20_ListViewTest extends SampleTest {
 
 	@Test

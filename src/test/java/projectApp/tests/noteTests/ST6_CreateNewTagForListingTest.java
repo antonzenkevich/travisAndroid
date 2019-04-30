@@ -1,32 +1,30 @@
-package projectApp.tests.noteTests.testsPerch;
+package projectApp.tests.noteTests;
 
 import net.thucydides.core.annotations.WithTagValuesOf;
 import org.junit.Test;
 import projectApp.SampleTest;
 
-@WithTagValuesOf({"SmokeTestSuit"})
-public class ST7_UseExistingTagForListingTest extends SampleTest {
+@WithTagValuesOf("SmokeTestSuit")
+public class ST6_CreateNewTagForListingTest extends SampleTest {
 
 	@Test
-	public void useExistingTagForListing() {
+	public void createNewTagForListing() {
 		generalPageSteps.loginAsClient("test-android+broker-no-listing-mgmt-core@perchwell.com","perchwell");
 		atPerchwellPage.skipAllHints();
 		atPerchPopup.clickNotNowButton();
 		atPerchwellPage.openFirstBuilding();
-		atOpenedBuildingPage.getFirstBuildingAddress();
 		atOpenedBuildingPage.clickOnDiscussWithMyClientHint();
+		atOpenedBuildingPage.getFirstBuildingAddress();
 		atOpenedBuildingPage.clickOnMyTagsLabel();
-		atTagsPage.setRandomTagAndSave();
 		atOpenedBuildingPage.clearTagsList();
+		atTagsPage.setRandomTagAndSave();
 		atTagsPage.clickOnArrowBackFromTagsButton();
-		atOpenedBuildingPage.clickOnMyTagsLabel();
-		atTagsPage.clickOnFirstTagAndGetValue();
-		atTagsPage.clickOnArrowBackFromTagsButton();
-		atOpenedBuildingPage.shouldSeeFirstExistingTag();
+		atTagsPage.justCreatedTagIsAddedToListing();
 		atOpenedBuildingPage.clickOnArrowBackButtonFromListing();
 		atPerchwellPage.clickOnOpenAccountButton();
 		atAccountPage.clickOnTagsLabel();
-		atTagsPage.clickOnExistingTag();
+		atTagsPage.shouldSeeJustCreatedTag(); //temp solution for iOS
+		atTagsPage.clickOnCreatedTag();
 		atTagsPage.clickOnSearchButton();
 		atTagsPage.shouldSeeTaggedListing();
 	}
