@@ -13,6 +13,14 @@ public class Config {
         return getCapability("platformName").equals("LINUX");
     }
 
+    public static boolean isOnTravis() {
+        return getCapability("app").contains("travis");
+    }
+
+    public static boolean isIPad() {
+        return getCapability("deviceName").contains("iPad");
+    }
+
     private static String getCapability(String Capability) {
         Capabilities capabilities = ((RemoteWebDriver)((WebDriverFacade) getDriver()).getProxiedDriver()).getCapabilities();
         return String.valueOf(capabilities.getCapability(Capability));

@@ -1,17 +1,11 @@
 package projectApp;
 
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileBy;
-import io.appium.java_client.MobileDriver;
-import io.appium.java_client.android.AndroidDriver;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
-import net.thucydides.core.webdriver.WebDriverFacade;
-import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
-import projectApp.steps.GeneralPageSteps;
+import projectApp.steps.*;
 
 @RunWith(SerenityRunner.class)
 public abstract class SampleTest {
@@ -22,4 +16,24 @@ public abstract class SampleTest {
     @Steps
     public GeneralPageSteps generalPageSteps;
 
+    @Steps
+    public PerchwellSteps atPerchwellPage;
+
+    @Steps
+    public PerchPopupSteps atPerchPopup;
+
+    @Steps
+    public OpenedBuildingSteps atOpenedBuildingPage;
+
+    @Steps
+    public AccountSteps atAccountPage;
+
+    @Steps
+    public TagsSteps atTagsPage;
+
+    @Steps
+    public REBNYListingsSteps atRebnyListingsPage;
+
+    @Steps
+    public AnalyticsSteps atAnalyticsPage;
 }

@@ -5,8 +5,8 @@ env:
   global:
     - PATH=$HOME/.local/bin:$PATH
   matrix:
+    - TEST_SUITE="SmokeTestSuit"
     - TEST_SUITE="TravisTest123"
-    - TEST_SUITE="TravisTest1"
 
 android:
   licenses:
