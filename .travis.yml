@@ -44,7 +44,7 @@ before_install:
   - wget -q "https://dl.google.com/android/repository/emulator-linux-5438295.zip" -O emulator.zip
   - unzip -q emulator.zip
   - cd -
-  - echo no | $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-24;default;x86" --device 19
+  - echo no | $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_XL_API_26 -k "system-images;android-26;default;x86" --device 19
   - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_26 -no-accel -no-window -no-audio &
   - $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
   - $ANDROID_HOME/platform-tools/adb shell input keyevent 82
