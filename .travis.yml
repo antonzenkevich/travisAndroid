@@ -17,22 +17,6 @@ matrix:
       language: generic
       os: linux
 
-#android:
-#  licenses:
-#    - 'android-sdk-preview-license-.+'
-#    - 'android-sdk-license-.+'
-#    - 'google-gdk-license-.+'
-#  components:
-#    - tools
-#    - tools
-#    - platform-tools
-#    - extra-google-google_play_services
-#    - extra-google-m2repository
-#    - extra-android-m2repository
-#    - build-tools-28.0.3
-#    - android-24
-#    - sys-img-armeabi-v7a-android-24
-
 before_install:
   - ANDROID_TOOLS=4333796 # android-28
   - export ANDROID_HOME=~/android-sdk
@@ -91,7 +75,7 @@ script:
 
   - |
     if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-      appium &
+      appium --log-level error &
       mvn -q clean verify -Dtags=$TEST_SUITE
     fi
 

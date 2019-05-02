@@ -64,6 +64,11 @@ public class OpenedBuildingPage extends TechHelper {
 	}
 
 	public void isBuildingOpen() {
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		element(myTagsLabel).shouldBeVisible();
 	}
 
