@@ -73,6 +73,11 @@ public class PerchwellPage extends TechHelper {
 	}
 
 	public void openFirstBuilding() {
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		element(firstBuilding).click();
 	}
 
