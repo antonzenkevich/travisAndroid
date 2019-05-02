@@ -93,6 +93,11 @@ public class PerchwellPage extends TechHelper {
 	}
 
 	public void addBuildingAddressInSessionVariable(String buildingName, String buildingAddress) {
+		try {
+			Thread.sleep(30000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		SessionVariables.addValueInSessionVariable(buildingName,buildingAddress);
 	}
 
