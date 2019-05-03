@@ -49,19 +49,10 @@ public class AnalyticsPage extends TechHelper {
 
     public void upToOneMillionButtonClick(){
             element(upToOneMillionButton).click();
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
 	public void selectSecondBuildingInList(){
+	    element(secondBuildingTable).waitUntilVisible();
         element(secondBuildingTable).click();
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 	}
 }

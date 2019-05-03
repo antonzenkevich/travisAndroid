@@ -56,6 +56,7 @@ public class OpenedBuildingPage extends TechHelper {
 
 	public String getBuildingAddress() {
 		if (Config.isAndroid()){
+			element(buildingAddress).waitUntilVisible();
 			return buildingAddress.getAttribute("text");
 		}
 		else{
@@ -64,6 +65,7 @@ public class OpenedBuildingPage extends TechHelper {
 	}
 
 	public void isBuildingOpen() {
+		element(myTagsLabel).waitUntilVisible();
 		element(myTagsLabel).shouldBeVisible();
 	}
 
@@ -85,6 +87,7 @@ public class OpenedBuildingPage extends TechHelper {
 	}
 
 	public void saveFirstBuildingAddress() {
+		element(buildAddress).waitUntilVisible();
 		SessionVariables.addValueInSessionVariable("First_building_address", buildAddress.getAttribute("name"));
 	}
 
