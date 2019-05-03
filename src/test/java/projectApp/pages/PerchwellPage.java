@@ -73,11 +73,6 @@ public class PerchwellPage extends TechHelper {
 	}
 
 	public void openFirstBuilding() {
-		try {
-			Thread.sleep(20000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		element(firstBuilding).click();
 	}
 
@@ -93,11 +88,6 @@ public class PerchwellPage extends TechHelper {
 	}
 
 	public void addBuildingAddressInSessionVariable(String buildingName, String buildingAddress) {
-		try {
-			Thread.sleep(30000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		SessionVariables.addValueInSessionVariable(buildingName,buildingAddress);
 	}
 

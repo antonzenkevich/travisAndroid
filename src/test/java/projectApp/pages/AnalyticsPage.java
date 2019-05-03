@@ -58,6 +58,10 @@ public class AnalyticsPage extends TechHelper {
 
 	public void selectSecondBuildingInList(){
         element(secondBuildingTable).click();
-
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 	}
 }
