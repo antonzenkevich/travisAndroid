@@ -4,6 +4,9 @@ dist: trusty
 env:
   global:
     - PATH=$HOME/.local/bin:$PATH
+    - AWS_DEFAULT_REGION=us-east-1
+    - AWS_ACCESS_KEY_ID=AKIATTE2BRS7QYN5VOFY
+    - AWS_SECRET_ACCESS_KEY=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
 
 matrix:
   include:
@@ -61,14 +64,18 @@ install:
       nvm install 10.15.3
       nvm use 10.15.3
       npm install -g appium@1.9.1
+      sudo apt-get install python3-pip
+      pip3 --version
+      pip3 install awscli --upgrade --user
+      aws --version
     fi
 
 before_script:
-
   - |
     if [[ $TRAVIS_OS_NAME == "linux" ]]; then
       $ANDROID_HOME/platform-tools/adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v1.18.0.apk
     fi
+  - mkdir -p ~/test_result_report_$TEST_SUITE
 
 script:
   - |
@@ -80,6 +87,14 @@ script:
     if [[ $TRAVIS_OS_NAME == "linux" ]]; then
       appium --log-level error &
       mvn -q clean verify -Dtags=$TEST_SUITE
+    fi
+
+  - |
+    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
+      cd /home/travis/build/antonzenkevich/travisAndroid/target/
+      zip -r ${TEST_SUITE}-${TRAVIS_BUILD_NUMBER}.zip site/*
+      sudo mv ${TEST_SUITE}-${TRAVIS_BUILD_NUMBER}.zip ~/test_result_report_$TEST_SUITE
+      aws s3 cp ~/test_result_report_$TEST_SUITE/${TEST_SUITE}-${TRAVIS_BUILD_NUMBER}.zip s3://travisandroid/tests/ --acl public-read-write
     fi
 
 #sudo: required
