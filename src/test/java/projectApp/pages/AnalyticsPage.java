@@ -52,7 +52,6 @@ public class AnalyticsPage extends TechHelper {
     }
 
 	public void selectSecondBuildingInList(){
-	    element(secondBuildingTable).waitUntilVisible();
         element(secondBuildingTable).click();
 	}
 }

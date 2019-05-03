@@ -79,7 +79,6 @@ public class PerchwellPage extends TechHelper {
 	public String getFistBuildingAddress() {
 	    String firstBuildAddress;
 		if (Config.isAndroid()){
-			element(firstBuildingAddress).waitUntilVisible();
             firstBuildAddress = firstBuildingAddress.getAttribute("text");
 		}
 		else {
