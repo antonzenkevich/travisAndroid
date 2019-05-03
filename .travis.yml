@@ -44,7 +44,7 @@ before_install:
   - unzip -q emulator.zip
   - cd -
   - echo no | $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_XL_API_24 -k "system-images;android-24;default;armeabi-v7a" --device 19
-  - $ANDROID_HOME/tools/mksdcard -l mySdCard 1024M mySdCardFile.img
+  - $ANDROID_HOME/emulator/mksdcard -l mySdCard 1024M mySdCardFile.img
   - cat /home/travis/.android/avd/Pixel_XL_API_24.avd/config.ini --show-all
   - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_24 -no-window -no-audio -memory 1536 -sdcard mySdCardFile.img &
   - $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
