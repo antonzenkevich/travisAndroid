@@ -43,9 +43,9 @@ before_install:
   - wget -q "https://dl.google.com/android/repository/emulator-linux-5438295.zip" -O emulator.zip
   - unzip -q emulator.zip
   - cd -
-  - echo no | $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_XL_API_24 -k "system-images;android-24;default;armeabi-v7a" --device 19 -c 512M
+  - echo no | $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_XL_API_24 -k "system-images;android-24;default;armeabi-v7a" --device 19
   - cat /home/travis/.android/avd/Pixel_XL_API_24.avd/config.ini --show-all
-  - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_24 -no-window -no-audio -memory 1536 &
+  - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_24 -no-window -no-audio -memory 1536 -sdcard 512M &
   - $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
   - $ANDROID_HOME/platform-tools/adb shell input keyevent 82
   - cat /home/travis/.android/avd/Pixel_XL_API_24.avd/config.ini --show-all
