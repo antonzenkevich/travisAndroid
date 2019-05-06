@@ -14,10 +14,5 @@ public class PerchPopupSteps extends ScenarioSteps {
         if(!Config.isAndroid()) {
             onPage.clickOnNotNowButton();
         }
-        try {
-            Thread.sleep(15000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 }
