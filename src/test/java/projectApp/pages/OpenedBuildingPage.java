@@ -47,11 +47,6 @@ public class OpenedBuildingPage extends TechHelper {
 	}
 
 	public void clickOnMyTagsLabel() {
-		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		element(myTagsLabel).click();
 	}
 
