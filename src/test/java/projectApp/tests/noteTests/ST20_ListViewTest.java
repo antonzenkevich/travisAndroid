@@ -18,6 +18,12 @@ public class ST20_ListViewTest extends SampleTest {
 		generalPageSteps.loginAsClient("test-android+mgmt-core@perchwell.com","perchwell");
 		atPerchwellPage.skipAllHints();
 		atPerchPopup.clickNotNowButton();
+		try {
+			Thread.sleep(15000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		System.out.println(getDriver().getPageSource());
 		atPerchwellPage.getFirstListingAddress();
 		atPerchwellPage.openFirstBuilding();
 		atOpenedBuildingPage.clickOnDiscussWithMyClientHint();
