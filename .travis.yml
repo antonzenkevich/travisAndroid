@@ -1,96 +1,84 @@
-#jdk: oraclejdk8
-#sudo: required
-#dist: trusty
-#env:
-#  global:
-#    - PATH=$HOME/.local/bin:$PATH
-#    - AWS_DEFAULT_REGION=us-east-1
-#    - secure: "BIoxt46Csvd1rLU7x7pkhTTXGysksegvRFYhStmaCqaWh9EvKAgVQb+u5H19/g0iikw4SSmscJ3lFzK3mVo0rM9/rjuMUzquYiYCoB0J6tcXgWDtueGYuOKNi6kzEDF7dUYHJ9mm9MakPY//UE7epSee6H12OPWS4h45Si48/glwgzjgLVbO2JUL8qdZnS4m1ydAJl8iCUo9EHr3D6zx9TLBsY8GdrvProrIqjsVrQFQjhv6ZM5YZX305ql1JVkK3bh4u4C6NqsoI69n55TKITULNVQkRN+AuMMekfV33UkA432qHckiW7v6gqAO5exLM7EBT4zwLZwx6I2WFh1rMgnahIvSWgzP3AOvNCvaWTbhB1lMBUCWvTux0uDhs1ZvKtf0fE+pKkWUAdwIH9umRZO8xYKYZuSNrMj6M8jIm0KA/6cRs3HKgGQ81fNraecGjYgRBlcoGDT/78uvhdttk99R/bmhprBcSQddkYixhSNt7XXf6143Bct8f6G6DKVVT7e81KRyU3eHtxDFVNqaHLFVUL2QbWYgQF/i/dSe2I20NVR9OnOGFVrkiW6xCEXmcf7IlFYR4F+MYsLiYe4PSb5XPS5LjTZ02Osqkx+pWucjENZMDa6EMQGLqfRuCErRLhqfKr1bJ+Joj3me94OGsS3aWsxOfNsWCMDx9vevLwc="
-#    - secure: "N08TZMRJ6JMT80uj3AVW2ZqZw7TDNKW4MK0TRb7H0K+buHn3382zROKJeVJmvBg9MKnK6NXQrFYAkHceSESkNp8bO0GuARqgnOU6u11m15UwpFa9t1K2Dj0kAykCbmI4Je8hIHKaV4l2EMZSILLk3ZKJ9nRu7KCa5pPnrgFEZes5EuYr094Szgk2n9SlewGWchJiqAdKgeIzxTmZ5rGqHCY9FDhcvuYh61VfvoRKT8im0RMD2/EL03fpkFPb/bjnxaMAL89Vhfg/TrurgsrlKPIY+4k+xhmKVLUPgKQCGep2B9fyz+HCb4fPH1/uw3OpcLE4hYwDlTTG4GDYo1Qm3P+6hdoyyh+6PAcdNf/HqiAY8EdySWF/zuyTxSPuC7ucajfsIjolfT7MvGxOsWDm1fwixlLXPV41omjdts5NkC0N1+cKOuVDk+15K4+/h8vJs+xKP6d4Zd90u0PWn4nwta63SWshdpRCtJjC9whMjrrw/b2tsXx2GxMqdI0tQ56o00uggnhk3wvlR1vwGuHjSZbxuTc/JWm47vARI4OLmyrprbSum18Jd2vsoZMmXVstc35bKLDXEJ0K8Ys+qVnanm4XhBxI8LNTXb44d/961Tg+UjfhpqA2wmhBATN8R55W2nxffGwRnhEC9kQk+u1ikUCfU+MK1TonXdoz9+cwRjY="
-#
-#matrix:
-#  include:
-#    - if: commit_message =~ /android/
-#      env: TEST_SUITE="SmokeTestSuit"
-#      language: generic
-#      os: linux
-#
-#    - if: commit_message =~ /android/
-#      env: TEST_SUITE="TravisTest123"
-#      language: generic
-#      os: linux
-#
-#before_install:
-#  - ANDROID_TOOLS=4333796 # android-28
-#  - export ANDROID_HOME=~/android-sdk
-#  - wget -q "https://dl.google.com/android/repository/sdk-tools-linux-$ANDROID_TOOLS.zip" -O android-sdk-tools.zip
-#  - unzip -q android-sdk-tools.zip -d ${ANDROID_HOME}
-#  - rm android-sdk-tools.zip
-#  - PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools
-#  # Silence warning.
-#  - mkdir -p ~/.android
-#  - touch ~/.android/repositories.cfg
-#  # Accept licenses before installing components, no need to echo y for each component
-#  - yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
-#  # Platform tools
-#  - $ANDROID_HOME/tools/bin/sdkmanager "emulator" "tools" "platform-tools" > /dev/null
-#  # install older build tools (for emulator)
-#  - $ANDROID_HOME/tools/bin/sdkmanager "build-tools;28.0.3" "platforms;android-24" > /dev/null
-#  - $ANDROID_HOME/tools/bin/sdkmanager "extras;google;m2repository" "extras;google;google_play_services" "extras;android;m2repository" > /dev/null
-#  # Create and start emulator.
-#  - $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-24;default;armeabi-v7a" > /dev/null
-#  - rm -rf $ANDROID_HOME/emulator
-#  # Install latest canary of emulator
-#  - cd $ANDROID_HOME
-#  - sudo apt-get install -y libunwind8 libc++1
-#  - wget -q "https://dl.google.com/android/repository/emulator-linux-5438295.zip" -O emulator.zip
-#  - unzip -q emulator.zip
-#  - cd -
-#  - echo no | $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_XL_API_24 -k "system-images;android-24;default;armeabi-v7a" --device 19
-#  - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_24 -no-window -no-audio -memory 1536 -sdcard 512M -netspeed evdo -netdelay none &
-#  - $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
-#  - $ANDROID_HOME/platform-tools/adb shell input keyevent 82
-#
-#install:
-#  - |
-#    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-#      sudo apt-get update
-#      sudo apt-get install build-essential libssl-dev
-#      sudo curl https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-#      source ~/.profile
-#      nvm install 10.15.3
-#      nvm use 10.15.3
-#      npm install -g appium@1.9.1
-#      sudo apt-get install python3-pip
-#      pip3 install awscli --upgrade --user
-#    fi
-#
-#before_script:
-#  - |
-#    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-#      $ANDROID_HOME/platform-tools/adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v1.18.0.apk
-#    fi
-#  - mkdir -p ~/test_result_report_$TEST_SUITE
-#
-#script:
-#  - |
-#    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-#      $ANDROID_HOME/platform-tools/adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk
-#    fi
-#
-#  - |
-#    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-#      appium &
-#      mvn -q clean verify -Dtags=$TEST_SUITE
-#    fi
-#
-#  - |
-#    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-#      cd /home/travis/build/antonzenkevich/travisAndroid/target/
-#      zip -r ${TEST_SUITE}-${TRAVIS_BUILD_NUMBER}.zip site/*
-#      sudo mv ${TEST_SUITE}-${TRAVIS_BUILD_NUMBER}.zip ~/test_result_report_$TEST_SUITE
-#      aws s3 cp ~/test_result_report_$TEST_SUITE/${TEST_SUITE}-${TRAVIS_BUILD_NUMBER}.zip s3://travisandroid/tests/ --acl public-read-write
-#    fi
+jdk: oraclejdk8
+sudo: required
+dist: trusty
+env:
+  global:
+    - PATH=$HOME/.local/bin:$PATH
+
+matrix:
+  include:
+    - if: commit_message =~ /android/
+      env: TEST_SUITE="SmokeTestSuit"
+      language: generic
+      os: linux
+
+    - if: commit_message =~ /android/
+      env: TEST_SUITE="TravisTest123"
+      language: generic
+      os: linux
+
+before_install:
+  - ANDROID_TOOLS=4333796 # android-28
+  - export ANDROID_HOME=~/android-sdk
+  - wget -q "https://dl.google.com/android/repository/sdk-tools-linux-$ANDROID_TOOLS.zip" -O android-sdk-tools.zip
+  - unzip -q android-sdk-tools.zip -d ${ANDROID_HOME}
+  - rm android-sdk-tools.zip
+  - PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools
+  # Silence warning.
+  - mkdir -p ~/.android
+  - touch ~/.android/repositories.cfg
+  # Accept licenses before installing components, no need to echo y for each component
+  - yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+  # Platform tools
+  - $ANDROID_HOME/tools/bin/sdkmanager "emulator" "tools" "platform-tools" > /dev/null
+  # install older build tools (for emulator)
+  - $ANDROID_HOME/tools/bin/sdkmanager "build-tools;28.0.3" "platforms;android-24" > /dev/null
+  - $ANDROID_HOME/tools/bin/sdkmanager "extras;google;m2repository" "extras;google;google_play_services" "extras;android;m2repository" > /dev/null
+  # Create and start emulator.
+  - $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-24;default;armeabi-v7a" > /dev/null
+  - rm -rf $ANDROID_HOME/emulator
+  # Install latest canary of emulator
+  - cd $ANDROID_HOME
+  - sudo apt-get install -y libunwind8 libc++1
+  - wget -q "https://dl.google.com/android/repository/emulator-linux-5438295.zip" -O emulator.zip
+  - unzip -q emulator.zip
+  - cd -
+  - $ANDROID_HOME/tools/mksdcard -l mySdCard 1024M /home/travis/mySdCardFile.img
+  - echo no | $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_XL_API_24 -k "system-images;android-24;default;armeabi-v7a" --device 19 --sdcard /home/travis/mySdCardFile.img
+  - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_24 -no-window -no-audio -memory 2048 &
+  - cat /home/travis/.android/avd/Pixel_XL_API_24.avd/hardware.ini --show-all
+  - $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
+  - $ANDROID_HOME/platform-tools/adb shell input keyevent 82
+
+install:
+  - |
+    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
+      sudo apt-get update
+      sudo apt-get install build-essential libssl-dev
+      sudo curl https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+      source ~/.profile
+      nvm install 10.15.3
+      nvm use 10.15.3
+      npm install -g appium@1.9.1
+    fi
+
+before_script:
+  - |
+    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
+      $ANDROID_HOME/platform-tools/adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v1.18.0.apk
+    fi
+
+script:
+  - |
+    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
+      $ANDROID_HOME/platform-tools/adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk
+    fi
+
+  - |
+    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
+      appium --log-level error &
+      mvn -q clean verify -Dtags=$TEST_SUITE
+    fi
 
 #sudo: required
 #language: java
@@ -128,79 +116,79 @@
 #      mvn -q clean verify -Dtags=$TEST_SUITE -DtestEnvironment=ios
 #    fi
 
-jdk: oraclejdk8
-language: android
-os: linux
-
-env:
-  global:
-    - PATH=$HOME/.local/bin:$PATH
-
-  matrix:
-    - TEST_SUITE="SmokeTestSuit"
-    - TEST_SUITE="TravisTest123"
-
-android:
-  licenses:
-    - 'android-sdk-preview-license-.+'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
-  components:
-    - tools
-    - tools
-    - platform-tools
-    - extra-google-google_play_services
-    - extra-google-m2repository
-    - extra-android-m2repository
-    - build-tools-26.0.1
-    - android-24
-    - sys-img-arm64-v8a-android-24
-
-install:
-  - |
-    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-      sudo apt-get update
-      sudo apt-get install build-essential libssl-dev
-      sudo curl https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-      source ~/.profile
-      nvm install 10.15.3
-      nvm use 10.15.3
-      npm install -g appium@1.9.1
-    fi
-#      sudo apt-get install python3-pip
-#      pip3 install awscli --upgrade --user
-before_script:
-  - |
-    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-      mksdcard -l mySdCard 1024M /home/travis/mySdCardFile.img
-      echo no | android create avd --force -n Pixel_XL_API_24 --abi arm64-v8a -t 1 --sdcard /home/travis/mySdCardFile.img --skin WXGA800
-      emulator -avd Pixel_XL_API_24 -no-window &
-      android-wait-for-emulator
-      adb shell input keyevent 82
-    fi
-
-  - |
-    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-      adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v1.18.0.apk
-    fi
-
-script:
-  - |
-    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-      adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk
-    fi
-
-  - |
-    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-      appium --log-level error &
-      mvn -q clean verify -Dtags=$TEST_SUITE
-    fi
-
+#jdk: oraclejdk8
+#language: android
+#os: linux
+#
+#env:
+#  global:
+#    - PATH=$HOME/.local/bin:$PATH
+#
+#  matrix:
+#    - TEST_SUITE="SmokeTestSuit"
+#    - TEST_SUITE="TravisTest123"
+#
+#android:
+#  licenses:
+#    - 'android-sdk-preview-license-.+'
+#    - 'android-sdk-license-.+'
+#    - 'google-gdk-license-.+'
+#  components:
+#    - tools
+#    - tools
+#    - platform-tools
+#    - extra-google-google_play_services
+#    - extra-google-m2repository
+#    - extra-android-m2repository
+#    - build-tools-26.0.1
+#    - android-24
+#    - sys-img-arm64-v8a-android-24
+#
+#install:
 #  - |
 #    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-#      mkdir -p ~/test_result_report_$TEST_SUITE
-#      cd /home/travis/build/antonzenkevich/travisAndroid/target/
-#      zip -r ${TEST_SUITE}-${TRAVIS_BUILD_NUMBER}.zip site/*
-#      sudo mv ${TEST_SUITE}-${TRAVIS_BUILD_NUMBER}.zip ~/test_result_report_$TEST_SUITE
-#      aws s3 cp ~/test_result_report_$TEST_SUITE/${TEST_SUITE}-${TRAVIS_BUILD_NUMBER}.zip s3://travisandroid/tests/ --acl public-read-write
+#      sudo apt-get update
+#      sudo apt-get install build-essential libssl-dev
+#      sudo curl https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+#      source ~/.profile
+#      nvm install 10.15.3
+#      nvm use 10.15.3
+#      npm install -g appium@1.9.1
 #    fi
+##      sudo apt-get install python3-pip
+##      pip3 install awscli --upgrade --user
+#before_script:
+#  - |
+#    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
+#      mksdcard -l mySdCard 1024M /home/travis/mySdCardFile.img
+#      echo no | android create avd --force -n Pixel_XL_API_24 --abi arm64-v8a -t 1 --sdcard /home/travis/mySdCardFile.img --skin WXGA800
+#      emulator -memory 2048 -avd Pixel_XL_API_24 -no-window &
+#      android-wait-for-emulator
+#      adb shell input keyevent 82
+#    fi
+#
+#  - |
+#    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
+#      adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-v1.18.0.apk
+#    fi
+#
+#script:
+#  - |
+#    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
+#      adb -P 5037 -s emulator-5554 install /home/travis/.nvm/versions/node/v10.15.3/lib/node_modules/appium/node_modules/appium-uiautomator2-server/apks/appium-uiautomator2-server-debug-androidTest.apk
+#    fi
+#
+#  - |
+#    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
+#      appium --log-level error &
+#      mvn -q clean verify -Dtags=$TEST_SUITE
+#    fi
+#
+##  - |
+##    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
+##      mkdir -p ~/test_result_report_$TEST_SUITE
+##      cd /home/travis/build/antonzenkevich/travisAndroid/target/
+##      zip -r ${TEST_SUITE}-${TRAVIS_BUILD_NUMBER}.zip site/*
+##      sudo mv ${TEST_SUITE}-${TRAVIS_BUILD_NUMBER}.zip ~/test_result_report_$TEST_SUITE
+##      aws s3 cp ~/test_result_report_$TEST_SUITE/${TEST_SUITE}-${TRAVIS_BUILD_NUMBER}.zip s3://travisandroid/tests/ --acl public-read-write
+##    fi
