@@ -200,11 +200,11 @@ script:
       mvn -q clean verify -Dtags=$TEST_SUITE
     fi
 
-  - |
-    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-      mkdir -p ~/test_result_report_$TEST_SUITE
-      cd /home/travis/build/antonzenkevich/travisAndroid/target/
-      zip -r ${TEST_SUITE}-${TRAVIS_BUILD_NUMBER}.zip site/*
-      sudo mv ${TEST_SUITE}-${TRAVIS_BUILD_NUMBER}.zip ~/test_result_report_$TEST_SUITE
-      aws s3 cp ~/test_result_report_$TEST_SUITE/${TEST_SUITE}-${TRAVIS_BUILD_NUMBER}.zip s3://travisandroid/tests/ --acl public-read-write
-    fi
+#  - |
+#    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
+#      mkdir -p ~/test_result_report_$TEST_SUITE
+#      cd /home/travis/build/antonzenkevich/travisAndroid/target/
+#      zip -r ${TEST_SUITE}-${TRAVIS_BUILD_NUMBER}.zip site/*
+#      sudo mv ${TEST_SUITE}-${TRAVIS_BUILD_NUMBER}.zip ~/test_result_report_$TEST_SUITE
+#      aws s3 cp ~/test_result_report_$TEST_SUITE/${TEST_SUITE}-${TRAVIS_BUILD_NUMBER}.zip s3://travisandroid/tests/ --acl public-read-write
+#    fi
