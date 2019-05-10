@@ -43,7 +43,7 @@ before_install:
   - wget -q "https://dl.google.com/android/repository/emulator-linux-5438295.zip" -O emulator.zip
   - unzip -q emulator.zip
   - cd -
-  - $ANDROID_HOME/tools/mksdcard -l mySdCard 1024M /home/travis/mySdCardFile.img
+  - $ANDROID_HOME/emulator/mksdcard -l mySdCard 1024M /home/travis/mySdCardFile.img
   - echo no | $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_XL_API_24 -k "system-images;android-24;default;armeabi-v7a" --device 19 --sdcard /home/travis/mySdCardFile.img
   - $ANDROID_HOME/emulator/emulator -avd Pixel_XL_API_24 -no-window -no-audio -memory 2048 &
   - cat /home/travis/.android/avd/Pixel_XL_API_24.avd/hardware.ini --show-all
