@@ -51,6 +51,8 @@ before_install:
   - $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
   - $ANDROID_HOME/platform-tools/adb shell input keyevent 82
   - sudo du -a /home/travis/.android/avd/Pixel_XL_API_24.avd/ | sort -n -r | head -n 20
+  - cat /home/travis/.android/avd/Pixel_XL_API_24.avd/hardware-qemu.ini --show-all
+  - cat /home/travis/.android/avd/Pixel_XL_API_24.avd/config.ini --show-all
 
 install:
   - |
