@@ -12,6 +12,7 @@ public class ST20_ListViewTest extends SampleTest {
 
 	@Test
 	public void listView() {
+		System.out.println(getDriver().getPageSource());
 		if(getDriver().getPageSource().contains(" isn't responding")) {
 			getDriver().findElement(MobileBy.xpath("//android.widget.Button[@resource-id='android:id/aerr_close']")).click();
 		}

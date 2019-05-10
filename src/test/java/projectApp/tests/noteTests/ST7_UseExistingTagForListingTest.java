@@ -12,6 +12,7 @@ public class ST7_UseExistingTagForListingTest extends SampleTest {
 
 	@Test
 	public void useExistingTagForListing() {
+		System.out.println(getDriver().getPageSource());
 		if(getDriver().getPageSource().contains(" isn't responding")) {
 			getDriver().findElement(MobileBy.xpath("//android.widget.Button[@resource-id='android:id/aerr_close']")).click();
 		}
