@@ -12,19 +12,11 @@ public class ST6_CreateNewTagForListingTest extends SampleTest {
 
 	@Test
 	public void createNewTagForListing() {
-		System.out.println(getDriver().getPageSource());
 		if(getDriver().getPageSource().contains(" isn't responding")) {
 			getDriver().findElement(MobileBy.xpath("//android.widget.Button[@resource-id='android:id/aerr_close']")).click();
 		}
 		generalPageSteps.loginAsClient("test-android+mgmt-core@perchwell.com","perchwell");
 		atPerchwellPage.skipAllHints();
-		atPerchPopup.clickNotNowButton();
-		try {
-			Thread.sleep(15000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		System.out.println(getDriver().getPageSource());
 		atPerchwellPage.openFirstBuilding();
 		atOpenedBuildingPage.clickOnDiscussWithMyClientHint();
 		atOpenedBuildingPage.getFirstBuildingAddress();
