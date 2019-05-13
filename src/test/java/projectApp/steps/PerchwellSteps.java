@@ -20,6 +20,7 @@ public class PerchwellSteps extends ScenarioSteps {
 			onPage.clickOnTransformDataHint();
 			onPage.clickExploreSearchResultHint();
 		}
+		waitABit(15000);
 	}
 
 	@Step
