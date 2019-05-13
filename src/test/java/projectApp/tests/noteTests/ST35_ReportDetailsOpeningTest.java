@@ -2,6 +2,7 @@ package projectApp.tests.noteTests;
 
 import io.appium.java_client.MobileBy;
 import net.thucydides.core.annotations.WithTagValuesOf;
+import org.junit.Ignore;
 import org.junit.Test;
 import projectApp.SampleTest;
 
@@ -10,6 +11,7 @@ import static net.thucydides.core.webdriver.ThucydidesWebDriverSupport.getDriver
 @WithTagValuesOf("SmokeTestSuit")
 public class ST35_ReportDetailsOpeningTest extends SampleTest {
 
+	@Ignore
 	@Test
 	public void reportDetailsOpeningTest() {
 		if(getDriver().getPageSource().contains(" isn't responding")) {

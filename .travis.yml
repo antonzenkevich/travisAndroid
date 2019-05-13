@@ -162,7 +162,7 @@ before_script:
     if [[ $TRAVIS_OS_NAME == "linux" ]]; then
       mksdcard -l mySdCard 1024M /home/travis/mySdCardFile.img
       echo no | android create avd --force -n Pixel_XL_API_24 --abi arm64-v8a -t 1 --sdcard /home/travis/mySdCardFile.img --device 27
-      emulator -memory 1536 -avd Pixel_XL_API_24 -no-window &
+      emulator -memory 1536 -avd Pixel_XL_API_24 -no-window -skin 420x700 &
       android-wait-for-emulator
       adb shell input keyevent 82
     fi
@@ -180,6 +180,6 @@ script:
 
   - |
     if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-      appium &
+      appium --log-level error &
       mvn -q clean verify -Dtags=$TEST_SUITE
     fi
