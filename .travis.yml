@@ -160,11 +160,8 @@ install:
 before_script:
   - |
     if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-      cd /usr/local/android-sdk/
-      git clone https://github.com/brunorozendo/android-skins.git skins
-      android list device
       mksdcard -l mySdCard 1024M /home/travis/mySdCardFile.img
-      echo no | android create avd --force -n Pixel_XL_API_24 --abi arm64-v8a -t 1 --sdcard /home/travis/mySdCardFile.img --skin /usr/local/android-sdk/pixel_xl
+      echo no | android create avd --force -n Pixel_XL_API_24 --abi arm64-v8a -t 1 --sdcard /home/travis/mySdCardFile.img --device 9
       emulator -memory 1536 -avd Pixel_XL_API_24 -no-window &
       android-wait-for-emulator
       adb shell input keyevent 82
