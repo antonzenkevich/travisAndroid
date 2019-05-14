@@ -11,7 +11,6 @@ import static net.thucydides.core.webdriver.ThucydidesWebDriverSupport.getDriver
 @WithTagValuesOf("SmokeTestSuit")
 public class ST35_ReportDetailsOpeningTest extends SampleTest {
 
-	@Ignore
 	@Test
 	public void reportDetailsOpeningTest() {
 		if(getDriver().getPageSource().contains(" isn't responding")) {
