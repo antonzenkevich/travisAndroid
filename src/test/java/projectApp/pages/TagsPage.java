@@ -83,9 +83,7 @@ public class TagsPage extends TechHelper {
 
 	public void shouldSeeJustCreatedTagUpCaseWithSwipe(String tagName) {
 		if (Config.isAndroid()) {
-			setImplicitTimeout(1, SECONDS);
-			androidSwipeDownUntilElementVisible(tagName);
-			resetImplicitTimeout();
+			element(searchTagTextBox).sendKeys(tagName);
 			element(MobileBy.xpath("//*[contains(@text, '" + tagName + "')]")).shouldBeVisible();
 		} else {
 			element(searchTagTextBox).sendKeys(tagName);
