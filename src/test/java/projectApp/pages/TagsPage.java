@@ -72,7 +72,7 @@ public class TagsPage extends TechHelper {
 		WebElement tag;
 
 		if(Config.isAndroid()) {
-			tag = getDriver().findElement(MobileBy.xpath("//*[contains(@text, '" + uniqueTagName + "')]"));
+			tag = getDriver().findElement(MobileBy.xpath("//*[contains(@text, '" + uniqueTagName + " ')]"));
 		} else {
 
 			tag = element(MobileBy.iOSNsPredicateString(
@@ -84,7 +84,7 @@ public class TagsPage extends TechHelper {
 	public void shouldSeeJustCreatedTagUpCaseWithSwipe(String tagName) {
 		if (Config.isAndroid()) {
 			element(searchTagTextBox).sendKeys(tagName);
-			element(MobileBy.xpath("//*[contains(@text, '" + tagName + "')]")).shouldBeVisible();
+			element(MobileBy.xpath("//*[contains(@text, '" + tagName + " ')]")).shouldBeVisible();
 		} else {
 			element(searchTagTextBox).sendKeys(tagName);
 			element(MobileBy.iOSClassChain("**/XCUIElementTypeStaticText[$name CONTAINS '" + tagName + "'$]")).shouldBeVisible();
