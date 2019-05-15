@@ -178,6 +178,6 @@ script:
 
   - |
     if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-      appium --log-level error &
+      appium &
       mvn -q clean verify -Dtags=$TEST_SUITE
     fi
