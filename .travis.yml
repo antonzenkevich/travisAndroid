@@ -141,7 +141,7 @@ android:
     - extra-android-m2repository
     - build-tools-28.0.3
     - android-24
-    - sys-img-arm64-v8a-google_apis-24
+    - sys-img-arm64-v8a-android-24
 
 install:
   - |
