@@ -160,19 +160,10 @@ before_script:
     if [[ $TRAVIS_OS_NAME == "linux" ]]; then
       mksdcard -l mySdCard 1024M /home/travis/mySdCardFile.img
       echo no | android create avd --force -n Pixel_XL_API_24 --abi arm64-v8a -t 1 --sdcard /home/travis/mySdCardFile.img --device 27
-      cat /home/travis/.android/avd/Pixel_XL_API_24.avd/config.ini --show-all
-      sed -i 's+hw.lcd.density=160+hw.lcd.density=560+g' /home/travis/.android/avd/Pixel_XL_API_24.avd/config.ini
-      sed -i 's+vm.heapSize=48+vm.heapSize=384+g' /home/travis/.android/avd/Pixel_XL_API_24.avd/config.ini
-      sed -i 's+hw.ramSize=512+hw.ramSize=1536+g' /home/travis/.android/avd/Pixel_XL_API_24.avd/config.ini
-      cat /home/travis/.android/avd/Pixel_XL_API_24.avd/config.ini --show-all
-    fi
-
-  - |
-    if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-      emulator -avd Pixel_XL_API_24 -no-window -skin 1440x2392 &
+      emulator -memory 1536 -avd Pixel_XL_API_24 -no-window -skin 1440x2392 &
       android-wait-for-emulator
       adb shell input keyevent 82
-      cat /home/travis/.android/avd/Pixel_XL_API_24.avd/hardware-qemu.ini --show-all
+      adb shell wm density 560
     fi
 
   - |
