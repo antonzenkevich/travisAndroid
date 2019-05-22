@@ -15,6 +15,8 @@ public class test2 extends SampleTest {
         if(getDriver().getPageSource().contains(" isn't responding")) {
             getDriver().findElement(MobileBy.xpath("//android.widget.Button[@resource-id='android:id/aerr_close']")).click();
         }
+        System.out.println(getDriver().manage().window().getSize().width);
+        System.out.println(getDriver().manage().window().getSize().height);
         generalPageSteps.loginAsClient("test-android+mgmt-core@perchwell.com","perchwell");
         generalPageSteps.skipAllHints();
         generalPageSteps.clickNotNowButton();
