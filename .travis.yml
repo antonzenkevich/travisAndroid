@@ -160,11 +160,9 @@ before_script:
     if [[ $TRAVIS_OS_NAME == "linux" ]]; then
       mksdcard -l mySdCard 1024M /home/travis/mySdCardFile.img
       echo no | android create avd --force -n Pixel_XL_API_24 --abi arm64-v8a -t 1 --sdcard /home/travis/mySdCardFile.img --device 27
-      emulator -memory 1536 -avd Pixel_XL_API_24 -no-window &
+      emulator -memory 1536 -avd Pixel_XL_API_24 -no-window -skin 480x640 &
       android-wait-for-emulator
       adb shell input keyevent 82
-      adb shell wm density 350
-      adb shell wm size 900x1600
     fi
 
   - |
