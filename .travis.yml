@@ -141,7 +141,7 @@ android:
     - extra-android-m2repository
     - build-tools-28.0.3
     - android-22
-    - ssys-img-armeabi-v7a-android-22
+    - sys-img-armeabi-v7a-android-22
 
 install:
   - |
