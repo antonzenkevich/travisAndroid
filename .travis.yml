@@ -124,8 +124,8 @@ env:
     - PATH=$HOME/.local/bin:$PATH
 
   matrix:
-    - TEST_SUITE="SmokeTestSuit" ABI="arm64-v8a"
-    - TEST_SUITE="SmokeTestSuit1" ABI="armeabi-v7a"
+    - TEST_SUITE="SmokeTestSuit"
+    - TEST_SUITE="TravisTest123"
 
 android:
   licenses:
@@ -141,7 +141,7 @@ android:
     - extra-android-m2repository
     - build-tools-28.0.3
     - android-24
-    - sys-img-$ABI-google_apis-24
+    - sys-img-arm64-v8a-android-24
 
 install:
   - |
@@ -159,8 +159,8 @@ before_script:
   - |
     if [[ $TRAVIS_OS_NAME == "linux" ]]; then
       mksdcard -l mySdCard 1024M /home/travis/mySdCardFile.img
-      echo no | android create avd --force -n Pixel_XL_API_24 --abi $ABI -t 1 --sdcard /home/travis/mySdCardFile.img --device 9 --tag google_apis
-      emulator -memory 1536 -avd Pixel_XL_API_24 -no-window &
+      echo no | android create avd --force -n Pixel_XL_API_24 --abi arm64-v8a -t 1 --sdcard /home/travis/mySdCardFile.img --device 27
+      emulator -memory 1536 -avd Pixel_XL_API_24 -no-window -skin 480x640 &
       android-wait-for-emulator
       adb shell input keyevent 82
     fi

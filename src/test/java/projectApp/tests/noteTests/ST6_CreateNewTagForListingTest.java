@@ -7,7 +7,7 @@ import projectApp.SampleTest;
 
 import static net.thucydides.core.webdriver.ThucydidesWebDriverSupport.getDriver;
 
-@WithTagValuesOf({"SmokeTestSuit", "SmokeTestSuit1"})
+@WithTagValuesOf("SmokeTestSuit")
 public class ST6_CreateNewTagForListingTest extends SampleTest {
 
 	@Test
