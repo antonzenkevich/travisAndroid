@@ -18,7 +18,7 @@ public class ST6_CreateNewTagForListingTest extends SampleTest {
 	@Test
 	public void createNewTagForListing() {
 		WebDriverManager.chromedriver().version("2.46").setup();
-		System.setProperty("webdriver.chrome.driver", "/home/travis/.m2/repository/webdriver/chromedriver/linux64/2.46/chromedriver");
+//		System.setProperty("webdriver.chrome.driver", "/home/travis/.m2/repository/webdriver/chromedriver/linux64/2.46/chromedriver");
 
 		WebDriver chromeDriver = new ChromeDriver();
 
