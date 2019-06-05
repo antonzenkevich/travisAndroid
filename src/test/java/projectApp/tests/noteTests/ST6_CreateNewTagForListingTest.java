@@ -1,8 +1,13 @@
 package projectApp.tests.noteTests;
 
 import io.appium.java_client.MobileBy;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import net.thucydides.core.annotations.WithTagValuesOf;
 import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import projectApp.SampleTest;
 
 import static net.thucydides.core.webdriver.ThucydidesWebDriverSupport.getDriver;
@@ -12,27 +17,42 @@ public class ST6_CreateNewTagForListingTest extends SampleTest {
 
 	@Test
 	public void createNewTagForListing() {
-		if(getDriver().getPageSource().contains(" isn't responding")) {
-			getDriver().findElement(MobileBy.xpath("//android.widget.Button[@resource-id='android:id/aerr_close']")).click();
+		WebDriverManager.chromedriver().version("2.46").setup();
+		WebDriver chromeDriver = new ChromeDriver();
+
+		chromeDriver.navigate().to("https://www.google.by/");
+		WebElement passwordTextBox = chromeDriver.findElement(By.cssSelector("[class=\"gLFyf gsfi\"]"));
+		passwordTextBox.sendKeys("Hello world!");
+
+		WebElement confirmPasswordTextBox = chromeDriver.findElement(By.cssSelector("[class=\"gNO89b\"]"));
+		confirmPasswordTextBox.click();
+		try {
+			Thread.sleep(15000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
-		System.out.println(getDriver().manage().window().getSize().width);
-		System.out.println(getDriver().manage().window().getSize().height);
-		generalPageSteps.loginAsClient("test-android+mgmt-core@perchwell.com","perchwell");
-		atPerchwellPage.skipAllHints();
-		atPerchwellPage.openFirstBuilding();
-		atOpenedBuildingPage.clickOnDiscussWithMyClientHint();
-		atOpenedBuildingPage.getFirstBuildingAddress();
-		atOpenedBuildingPage.clickOnMyTagsLabel();
-		atOpenedBuildingPage.clearTagsList();
-		atTagsPage.setRandomTagAndSave();
-		atTagsPage.clickOnArrowBackFromTagsButton();
-		atTagsPage.justCreatedTagIsAddedToListing();
-		atOpenedBuildingPage.clickOnArrowBackButtonFromListing();
-		atPerchwellPage.clickOnOpenAccountButton();
-		atAccountPage.clickOnTagsLabel();
-		atTagsPage.shouldSeeJustCreatedTag(); //temp solution for iOS
-		atTagsPage.clickOnCreatedTag();
-		atTagsPage.clickOnSearchButton();
-		atTagsPage.shouldSeeTaggedListing();
+		chromeDriver.quit();
+//		if(getDriver().getPageSource().contains(" isn't responding")) {
+//			getDriver().findElement(MobileBy.xpath("//android.widget.Button[@resource-id='android:id/aerr_close']")).click();
+//		}
+//		System.out.println(getDriver().manage().window().getSize().width);
+//		System.out.println(getDriver().manage().window().getSize().height);
+//		generalPageSteps.loginAsClient("test-android+mgmt-core@perchwell.com","perchwell");
+//		atPerchwellPage.skipAllHints();
+//		atPerchwellPage.openFirstBuilding();
+//		atOpenedBuildingPage.clickOnDiscussWithMyClientHint();
+//		atOpenedBuildingPage.getFirstBuildingAddress();
+//		atOpenedBuildingPage.clickOnMyTagsLabel();
+//		atOpenedBuildingPage.clearTagsList();
+//		atTagsPage.setRandomTagAndSave();
+//		atTagsPage.clickOnArrowBackFromTagsButton();
+//		atTagsPage.justCreatedTagIsAddedToListing();
+//		atOpenedBuildingPage.clickOnArrowBackButtonFromListing();
+//		atPerchwellPage.clickOnOpenAccountButton();
+//		atAccountPage.clickOnTagsLabel();
+//		atTagsPage.shouldSeeJustCreatedTag(); //temp solution for iOS
+//		atTagsPage.clickOnCreatedTag();
+//		atTagsPage.clickOnSearchButton();
+//		atTagsPage.shouldSeeTaggedListing();
 	}
 }
