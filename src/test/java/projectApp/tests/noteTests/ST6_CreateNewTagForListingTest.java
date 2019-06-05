@@ -17,7 +17,7 @@ public class ST6_CreateNewTagForListingTest extends SampleTest {
 
 	@Test
 	public void createNewTagForListing() {
-		WebDriverManager.chromedriver().version("2.46").setup();
+//		WebDriverManager.chromedriver().version("2.46").setup();
 		WebDriver chromeDriver = new ChromeDriver();
 
 		chromeDriver.navigate().to("https://www.google.by/");

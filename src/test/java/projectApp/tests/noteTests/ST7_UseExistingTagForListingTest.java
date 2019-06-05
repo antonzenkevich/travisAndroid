@@ -17,7 +17,7 @@ public class ST7_UseExistingTagForListingTest extends SampleTest {
 
 	@Test
 	public void useExistingTagForListing() {
-		WebDriverManager.chromedriver().version("2.46").setup();
+//		WebDriverManager.chromedriver().version("2.46").setup();
 		WebDriver chromeDriver = new ChromeDriver();
 
 		chromeDriver.navigate().to("https://www.google.by/");
