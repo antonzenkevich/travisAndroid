@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import projectApp.SampleTest;
 
 import static net.thucydides.core.webdriver.ThucydidesWebDriverSupport.getDriver;
@@ -17,22 +18,15 @@ public class ST6_CreateNewTagForListingTest extends SampleTest {
 
 	@Test
 	public void createNewTagForListing() {
-		WebDriverManager.chromedriver().version("2.46").setup();
+		WebDriverManager.firefoxdriver().setup();
 //		System.setProperty("webdriver.chrome.driver", "/home/travis/.m2/repository/webdriver/chromedriver/linux64/2.46/chromedriver");
 
-		WebDriver chromeDriver = new ChromeDriver();
+		WebDriver chromeDriver = new FirefoxDriver();
 
 		chromeDriver.navigate().to("https://www.google.by/");
 		WebElement passwordTextBox = chromeDriver.findElement(By.cssSelector("[class=\"gLFyf gsfi\"]"));
 		passwordTextBox.sendKeys("Hello world!");
-
-		WebElement confirmPasswordTextBox = chromeDriver.findElement(By.cssSelector("[class=\"gNO89b\"]"));
-		confirmPasswordTextBox.click();
-		try {
-			Thread.sleep(15000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		System.out.println(passwordTextBox.getAttribute("value"));
 		chromeDriver.quit();
 //		if(getDriver().getPageSource().contains(" isn't responding")) {
 //			getDriver().findElement(MobileBy.xpath("//android.widget.Button[@resource-id='android:id/aerr_close']")).click();
