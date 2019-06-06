@@ -20,11 +20,8 @@ public class ST7_UseExistingTagForListingTest extends SampleTest {
 	@Test
 	public void useExistingTagForListing() {
 		WebDriverManager.chromedriver().version("2.46").setup();
-		ChromeOptions ChromeOptions = new ChromeOptions();
-		ChromeOptions.addArguments("--headless", "window-size=1024,768", "--no-sandbox");
-//		System.setProperty("webdriver.chrome.driver", "/home/travis/.m2/repository/webdriver/chromedriver/linux64/2.46/chromedriver");
 
-		WebDriver chromeDriver = new ChromeDriver(ChromeOptions);
+		WebDriver chromeDriver = new ChromeDriver();
 		System.out.println(1);
 		chromeDriver.navigate().to("https://www.google.by/");
 		System.out.println(1);
