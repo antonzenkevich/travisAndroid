@@ -153,7 +153,7 @@ install:
       nvm install 10.15.3
       nvm use 10.15.3
       npm install -g appium@1.9.1
-      npm install chrome-launcher
+      npm install linux-chrome
     fi
 
 before_script:
