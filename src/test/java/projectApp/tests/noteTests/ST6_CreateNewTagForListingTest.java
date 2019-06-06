@@ -18,13 +18,15 @@ public class ST6_CreateNewTagForListingTest extends SampleTest {
 
 	@Test
 	public void createNewTagForListing() {
-		WebDriverManager.firefoxdriver().setup();
+		WebDriverManager.chromedriver().version("2.46").setup();
 //		System.setProperty("webdriver.chrome.driver", "/home/travis/.m2/repository/webdriver/chromedriver/linux64/2.46/chromedriver");
 
-		WebDriver chromeDriver = new FirefoxDriver();
-
+		WebDriver chromeDriver = new ChromeDriver();
+		System.out.println(1);
 		chromeDriver.navigate().to("https://www.google.by/");
+		System.out.println(1);
 		WebElement passwordTextBox = chromeDriver.findElement(By.cssSelector("[class=\"gLFyf gsfi\"]"));
+		System.out.println(1);
 		passwordTextBox.sendKeys("Hello world!");
 		System.out.println(passwordTextBox.getAttribute("value"));
 		chromeDriver.quit();

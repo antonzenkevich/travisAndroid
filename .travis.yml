@@ -154,7 +154,6 @@ install:
       nvm install 10.15.3
       nvm use 10.15.3
       npm install -g appium@1.9.1
-      npm install linux-firefox
     fi
 
 before_script:
